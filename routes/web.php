@@ -8,13 +8,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/')->group(function (){
 
-  $menus    =  Menu::select('slug' , 'class' , 'submenu_route')->get();
-  $submenus =  Submenu::select('id' , 'slug' , 'class')->get();
-  //$medias   =  \App\Models\Media::join('submenus' , 'media.submenu_id' , '=' , 'submenus.id')->select('media.slug' , 'media.submenu_id','submenus.slug as slugsubmenu')->get();
-  //foreach ($medias as $media)
-  //{
-  //    Route::get('کلیپ/'.$media->slugsubmenu.'/'.'{slug}', [App\Http\Controllers\Site\IndexController::class, 'clipdetail'])->name($media->slug);
-  //}
+    $menus    =  Menu::select('slug' , 'class' , 'submenu_route')->get();
+    $submenus =  Submenu::select('id' , 'slug' , 'class')->get();
+
     foreach ($menus as $menu)
     {
         Route::get($menu->slug, [App\Http\Controllers\Site\IndexController::class, $menu->class])->name($menu->slug);
@@ -48,9 +44,8 @@ Route::prefix('/')->group(function (){
 
 
 });
-//Route::group(['namespace' => 'Admin' , 'middleware' => ['auth:web' , 'checkAdmin'], 'prefix' => 'admin'],function (){
-//namespace App\Http\Controllers\Admin;
-//Route::group(['namespace' => 'App\Http\Controllers\Admin' , 'prefix' => 'admin' , 'middleware' => ['auth:web' , 'checkAdmin']], function () {
+
+
 Route::prefix('admin')->middleware(['auth:web' , 'checkAdmin'])->group(function (){
 
 
@@ -83,48 +78,25 @@ Route::prefix('admin')->middleware(['auth:web' , 'checkAdmin'])->group(function 
 
 //    Route::get('panel'                            , [App\Http\Controllers\Admin\PanelController::class   , 'index'])->name('/');
 
-//    Route::resource('users'                     , App\Http\Controllers\Admin\UserController::class);
-//    Route::resource('slides'                    , App\Http\Controllers\Admin\SlideController::class);
-//    Route::resource('permissions'               , App\Http\Controllers\Admin\PermissionController::class);
-//    Route::resource('roles'                     , App\Http\Controllers\Admin\RoleController::class);
-//    Route::resource('levelAdmins'               , App\Http\Controllers\Admin\LevelManageController::class);
-//    Route::resource('profile'                   , App\Http\Controllers\Admin\ProfileController::class);
-//    Route::resource('menudashboards'            , App\Http\Controllers\Admin\MenudashboardController::class);
-//    Route::resource('submenudashboards'         , App\Http\Controllers\Admin\SubmenudashboardController::class);
-//    Route::resource('submenus'                  , App\Http\Controllers\Admin\SubmenuController::class);
-//    Route::resource('menus'                     , App\Http\Controllers\Admin\MenuController::class);
-//    Route::resource('logomanage'                , App\Http\Controllers\Admin\CompanyController::class);
-//    Route::resource('subcategorysitemanage'     , App\Http\Controllers\Admin\SubcategorysiteController::class);
 
     Route::delete('menudashboards'          , [App\Http\Controllers\Admin\MenudashboardController::class    , 'deletemenudashboards'])   ->name('deletemenudashboards');
     Route::delete('submenudashboards'       , [App\Http\Controllers\Admin\SubmenudashboardController::class , 'deletesubmenudashboards'])->name('deletesubmenudashboards');
     Route::delete('permissions'             , [App\Http\Controllers\Admin\PermissionController::class       , 'deletepermissions'])      ->name('deletepermissions');
     Route::delete('roles'                   , [App\Http\Controllers\Admin\RoleController::class             , 'deleteroles'])            ->name('deleteroles');
-    Route::delete('deletecompany'           , [App\Http\Controllers\Admin\CompanyController::class          , 'deletecompany'])          ->name('deletecompany');
+    Route::delete('deletelogo'              , [App\Http\Controllers\Admin\LogoController::class             , 'deletelogo'])             ->name('deletelogo');
     Route::delete('deleteadminlevel'        , [App\Http\Controllers\Admin\RoleController::class             , 'deleteadminlevel'])       ->name('deleteadminlevel');
     Route::delete('deleteuser'              , [App\Http\Controllers\Admin\UserController::class             , 'deleteuser'])             ->name('deleteuser');
     Route::delete('deleteslide'             , [App\Http\Controllers\Admin\slideController::class            , 'deleteslide'])            ->name('deleteslide');
-    Route::delete('deleteblugs'             , [App\Http\Controllers\Admin\BlugController::class             , 'deleteblugs'])            ->name('deleteblugs');
+    Route::delete('deleteblugs'             , [App\Http\Controllers\Admin\BlugController::class            , 'deleteblugs'])             ->name('deleteblugs');
     Route::delete('deletemenus'             , [App\Http\Controllers\Admin\MenuController::class             , 'deletemenus'])            ->name('deletemenus');
     Route::delete('deletesubmenus'          , [App\Http\Controllers\Admin\SubmenuController::class          , 'deletesubmenus'])         ->name('deletesubmenus');
     Route::delete('deletecustomers'         , [App\Http\Controllers\Admin\CustomerController::class         , 'deletecustomers'])        ->name('deletecustomers');
     Route::delete('deleteportfolios'        , [App\Http\Controllers\Admin\PortfolioController::class        , 'deleteportfolios'])       ->name('deleteportfolios');
-//    Route::delete('deletegallerypics'       , [App\Http\Controllers\Admin\GallerypicController::class       , 'deletegallerypics'])      ->name('deletegallerypics');
-//    Route::delete('deletegallerymusics'     , [App\Http\Controllers\Admin\GallerymusicController::class     , 'deletegallerymusics'])    ->name('deletegallerymusics');
-//    Route::delete('deletegalleryvideos'     , [App\Http\Controllers\Admin\GalleryvideoController::class     , 'deletegalleryvideos'])    ->name('deletegalleryvideos');
-//    Route::delete('deletegalleryvideos'     , [App\Http\Controllers\Admin\GalleryvideoController::class     , 'deletegalleryvideos'])    ->name('deletegalleryvideos');
-//    Route::delete('deleteprograms'          , [App\Http\Controllers\Admin\ProgramController::class          , 'deleteprograms'])         ->name('deleteprograms');
-
-    Route::post('slides/img'                , [App\Http\Controllers\Admin\MediaController::class , 'imgupload'])                         ->name('img');
-    Route::post('gallerypicmanage/img'      , [App\Http\Controllers\Admin\MediaController::class , 'imgupload'])                         ->name('img');
-//    Route::post('createsubtitle'            , [App\Http\Controllers\Admin\GalleryvideoController::class , 'createsubtitle'])             ->name('createsubtitle');
-//    Route::patch('updatesubtitle/{id}'      , [App\Http\Controllers\Admin\GalleryvideoController::class , 'updatesubtitle'])             ->name('updatesubtitle');
-//    Route::post('createsubtitlemusic'       , [App\Http\Controllers\Admin\GallerymusicController::class , 'createsubtitlemusic'])        ->name('createsubtitlemusic');
-//    Route::patch('updatesubtitlemusic/{id}' , [App\Http\Controllers\Admin\GallerymusicController::class , 'updatesubtitlemusic'])        ->name('updatesubtitlemusic');
-    Route::post('panel/id'                  , [App\Http\Controllers\Admin\PanelController::class   , 'getsubmenu'])                      ->name('getsubmenu');
-
-//    Route::post('gallerymusicmanage/id'     , [App\Http\Controllers\Admin\PanelController::class   , 'getsubmenu'])                      ->name('getsubmenu');
-//    Route::post('galleryvideomanage/id'     , [App\Http\Controllers\Admin\PanelController::class   , 'getsubmenu'])                      ->name('getsubmenu');
+    Route::post('slides/img'                , [App\Http\Controllers\Admin\MediaController::class            , 'imgupload'])              ->name('img');
+    Route::post('gallerypicmanage/img'      , [App\Http\Controllers\Admin\MediaController::class            , 'imgupload'])              ->name('img');
+    Route::post('panel/id'                  , [App\Http\Controllers\Admin\PanelController::class            , 'getsubmenu'])             ->name('getsubmenu');
+    Route::post('profile/createuser'        , [App\Http\Controllers\Admin\UserController::class             , 'createuser'])             ->name('createuser');
+    Route::PATCH('profile/update'           , [App\Http\Controllers\Admin\ProfileController::class          , 'update'])                 ->name('edituser');
 
 });
 
@@ -147,4 +119,3 @@ Route::prefix('admin')->group(function (){
 });
 
 //Auth::routes();
-

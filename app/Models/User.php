@@ -25,6 +25,9 @@ class User extends Authenticatable
         'email_verify',
         'type_id',
         'status',
+        'whatsapp',
+        'telegram',
+        'instagram',
         'password',
     ];
 

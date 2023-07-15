@@ -338,7 +338,7 @@
     <script src="{{asset('admin/assets/js/select2.js')}}"></script>
     <script>
         jQuery(document).ready(function(){
-            jQuery('#submit').click(function(e){
+            jQuery('#submit-form-update').click(function(e){
                 e.preventDefault();
                 $.ajaxSetup({
                     headers: {
@@ -346,14 +346,17 @@
                     }
                 });
                 jQuery.ajax({
-                    url: "{{ route(request()->segment(2).'.update' , auth()->user()->id) }}",
+                    url: "{{ route('edituser')}}",
                     method: 'PATCH',
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        // menu_id     : jQuery('#menu_id').val(),
-                        title       : jQuery('#title').val(),
-                        submenu     : jQuery('#submenu').val(),
-                        status      : jQuery('#status').val()
+                        username    : jQuery('#username').val(),
+                        name        : jQuery('#name').val(),
+                        email       : jQuery('#email').val(),
+                        mobile      : jQuery('#mobile').val(),
+                        whatsapp    : jQuery('#whatsapp').val(),
+                        instagram   : jQuery('#instagram').val(),
+                        telegram    : jQuery('#telegram').val()
                     },
                     success: function (data) {
                         swal(data.subject, data.message, data.flag);

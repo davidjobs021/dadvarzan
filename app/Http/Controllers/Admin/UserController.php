@@ -196,7 +196,10 @@ class UserController extends Controller
             $users->name         = $request->input('name');
             $users->username     = $request->input('username');
             $users->email        = $request->input('email');
-            $users->type_id         = $request->input('type');
+            $users->type_id      = $request->input('type');
+            $users->whatsapp     = $request->input('whatsapp');
+            $users->instagram    = $request->input('instagram');
+            $users->telegram     = $request->input('telegram');
             $users->phone        = $request->input('mobile');
             if ($request->input('password') != null) {
                 $users->password = Hash::make($request->input('password'));
