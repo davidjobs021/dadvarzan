@@ -5,7 +5,7 @@
 @section('main')
 
     <section class="hero-area position-relative hero-area-3">
-        <div class="hero-slider-item" style="background-image: url({{asset('storage/'.$slides['file_link'])}});height:770px;position:relative;background-position-y: -90px;filter: blur(4px) brightness(0.5);"></div>
+        <div class="hero-slider-item" style="background-image: @if($slides) url({{asset('storage/'.$slides['file_link'])}}) @endif ;height:770px;position:relative;background-position-y: -90px;filter: blur(4px) brightness(0.5);"></div>
         <div class="container" style="position: absolute;z-index: 9;top: 180px;margin: 0 auto;width: 100%;">
             <div class="row">
                 <div class="col-lg-2">

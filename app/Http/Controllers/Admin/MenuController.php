@@ -16,6 +16,13 @@ class MenuController extends Controller
 {
     public function index(Request $request)
     {
+        $thispage       = [
+            'title'         => 'مدیریت منو سایت',
+            'list_title'    => 'لیست منو سایت',
+            'add_title'     => 'افزودن منو سایت',
+            'create_title'  => 'ایجاد منو سایت',
+            'enter_title'   => 'ورود اطلاعات منو سایت',
+        ];
         $menus          = Menu::all();
         $menupanels     = Menu_panel::whereStatus(4)->get();
         $submenupanels  = Submenu_panel::whereStatus(4)->get();
@@ -59,17 +66,24 @@ class MenuController extends Controller
         }
 
         return view('Admin.menus.all')
-            ->with(compact(['menupanels' , 'submenupanels', 'menus']));
+            ->with(compact(['menupanels' , 'submenupanels', 'menus' , 'thispage']));
     }
 
     public function create()
     {
+        $thispage       = [
+            'title'         => 'مدیریت منو سایت',
+            'list_title'    => 'لیست منو سایت',
+            'add_title'     => 'افزودن منو سایت',
+            'create_title'  => 'ایجاد منو سایت',
+            'enter_title'   => 'ورود اطلاعات منو سایت',
+        ];
         $menupanels     = Menu_panel::whereStatus(4)->get();
         $submenupanels  = Submenu_panel::whereStatus(4)->get();
 
 
         return view('Admin.menus.create')
-            ->with(compact(['menupanels' , 'submenupanels']));
+            ->with(compact(['menupanels' , 'submenupanels' , 'thispage']));
     }
 
     public function store(Request $request)
@@ -80,13 +94,15 @@ class MenuController extends Controller
 
             $menu = new Menu();
 
-            $menu->title        = $request->input('title');
-            $menu->keyword      = $request->input('keyword');
-            $menu->description  = $request->input('description');
-            $menu->submenu      = $request->input('submenu');
-            $menu->status       = 4;
-            $menu->priority     = $menucount['priority'] + 1;
-            $menu->user_id      = Auth::user()->id;
+            $menu->title            = $request->input('title');
+            $menu->tab_title        = $request->input('tab_title');
+            $menu->page_title       = $request->input('page_title');
+            $menu->keyword          = $request->input('keyword');
+            $menu->page_description = $request->input('page_description');
+            $menu->submenu          = $request->input('submenu');
+            $menu->status           = 4;
+            $menu->priority         = $menucount['priority'] + 1;
+            $menu->user_id          = Auth::user()->id;
 
             $result = $menu->save();
             if ($result == true) {
