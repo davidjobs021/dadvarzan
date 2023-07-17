@@ -83,19 +83,21 @@ Route::prefix('admin')->middleware(['auth:web' , 'checkAdmin'])->group(function 
     Route::delete('submenudashboards'       , [App\Http\Controllers\Admin\SubmenudashboardController::class , 'deletesubmenudashboards'])->name('deletesubmenudashboards');
     Route::delete('permissions'             , [App\Http\Controllers\Admin\PermissionController::class       , 'deletepermissions'])      ->name('deletepermissions');
     Route::delete('roles'                   , [App\Http\Controllers\Admin\RoleController::class             , 'deleteroles'])            ->name('deleteroles');
-    Route::delete('deletelogo'              , [App\Http\Controllers\Admin\LogoController::class             , 'deletelogo'])             ->name('deletelogo');
     Route::delete('deleteadminlevel'        , [App\Http\Controllers\Admin\RoleController::class             , 'deleteadminlevel'])       ->name('deleteadminlevel');
     Route::delete('deleteuser'              , [App\Http\Controllers\Admin\UserController::class             , 'deleteuser'])             ->name('deleteuser');
     Route::delete('deleteslide'             , [App\Http\Controllers\Admin\slideController::class            , 'deleteslide'])            ->name('deleteslide');
-    Route::delete('deleteblugs'             , [App\Http\Controllers\Admin\BlugController::class            , 'deleteblugs'])             ->name('deleteblugs');
+    Route::delete('deleteblugs'             , [App\Http\Controllers\Admin\BlugController::class             , 'deleteblugs'])             ->name('deleteblugs');
     Route::delete('deletemenus'             , [App\Http\Controllers\Admin\MenuController::class             , 'deletemenus'])            ->name('deletemenus');
     Route::delete('deletesubmenus'          , [App\Http\Controllers\Admin\SubmenuController::class          , 'deletesubmenus'])         ->name('deletesubmenus');
     Route::delete('deletecustomers'         , [App\Http\Controllers\Admin\CustomerController::class         , 'deletecustomers'])        ->name('deletecustomers');
     Route::delete('deleteportfolios'        , [App\Http\Controllers\Admin\PortfolioController::class        , 'deleteportfolios'])       ->name('deleteportfolios');
+    Route::delete('deletecompany'           , [App\Http\Controllers\Admin\CompanyController::class          , 'deletecompany'])          ->name('deletecompany');
+
     Route::post('slides/img'                , [App\Http\Controllers\Admin\MediaController::class            , 'imgupload'])              ->name('img');
     Route::post('gallerypicmanage/img'      , [App\Http\Controllers\Admin\MediaController::class            , 'imgupload'])              ->name('img');
     Route::post('panel/id'                  , [App\Http\Controllers\Admin\PanelController::class            , 'getsubmenu'])             ->name('getsubmenu');
     Route::post('profile/createuser'        , [App\Http\Controllers\Admin\UserController::class             , 'createuser'])             ->name('createuser');
+
     Route::PATCH('profile/update'           , [App\Http\Controllers\Admin\ProfileController::class          , 'update'])                 ->name('edituser');
 
 });

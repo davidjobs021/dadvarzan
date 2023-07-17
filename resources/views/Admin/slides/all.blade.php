@@ -1,6 +1,6 @@
 @extends('Admin.admin')
 @section('title')
-    <title> مدیریت اسلایدها </title>
+    <title>{{$thispage['title']}}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{asset('admin/assets/plugins/datatable/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('admin/assets/plugins/datatable/dataTables.bootstrap4.min-rtl.css')}}">
@@ -17,8 +17,8 @@
                         <div class="card custom-card overflow-hidden">
                             <div class="card-body" style="background-color: #0000000a;border-radius: 10px 10px 0px 0px;">
                                 <div class="row">
-                                    <div class="col"><a href="{{url()->current()}}" class="btn btn-link btn-xs">لیست اسلایدهای سایت</a></div>
-                                    <div class="col text-left"><a href="{{url(request()->segment(1).'/'.request()->segment(2).'/'.'create')}}" class="btn btn-primary btn-xs">+ افزودن اسلاید سایت</a></div>
+                                    <div class="col"><a href="{{url()->current()}}" class="btn btn-link btn-xs">{{$thispage['list_title']}}</a></div>
+                                    <div class="col text-left"><a href="{{url(request()->segment(1).'/'.request()->segment(2).'/'.'create')}}" class="btn btn-primary btn-xs">+ {{$thispage['add_title']}}</a></div>
                                 </div>
                             </div>
                             <div class="card-body">

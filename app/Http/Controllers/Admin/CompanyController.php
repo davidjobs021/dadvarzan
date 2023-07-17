@@ -96,6 +96,10 @@ class CompanyController extends Controller
             $companies->eghtesadi_code  = $request->input('eghtesadi_code');
             $companies->date_sabt       = $request->input('date_sabt');
             $companies->address         = $request->input('address');
+            $companies->telegram        = $request->input('telegram');
+            $companies->instagram       = $request->input('instagram');
+            $companies->facebook        = $request->input('facebook');
+            $companies->linkedin        = $request->input('linkedin');
             $companies->user_id         = Auth::user()->id;
 
             if ($request->file('file_link')) {
@@ -164,6 +168,10 @@ class CompanyController extends Controller
         $companies->eghtesadi_code  = $request->input('eghtesadi_code');
         $companies->date_sabt       = $request->input('date_sabt');
         $companies->address         = $request->input('address');
+        $companies->telegram        = $request->input('telegram');
+        $companies->instagram       = $request->input('instagram');
+        $companies->facebook        = $request->input('facebook');
+        $companies->linkedin        = $request->input('linkedin');
         $companies->user_id         = Auth::user()->id;
 
         $result = $companies->update();

@@ -48,8 +48,8 @@
                 <div class="col-lg-6">
                     <div class="header-widget">
                         <ul class="generic-list-item d-flex flex-wrap align-items-center fs-14">
-                            <li class="d-flex align-items-center pr-3 mr-3 border-left border-left-gray"><i class="la la-phone mr-1"></i><a href="tel:00123456789">021-77116213</a></li>
-                            <li class="d-flex align-items-center"><i class="la la-envelope-o mr-1"></i><a href="mailto:info@bestagroup.ir"> info@bestagroup.ir </a></li>
+                            <li class="d-flex align-items-center pr-3 mr-3 border-left border-left-gray"><i class="la la-phone mr-1"></i><a href="tel:00123456789">{{$companies['tel']}}</a></li>
+                            <li class="d-flex align-items-center"><i class="la la-envelope-o mr-1"></i><a href="mailto:info@bestagroup.ir"> {{$companies['email']}} </a></li>
                         </ul>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                     <div class="col-lg-2">
                         <div class="logo-box">
                             <a href="{{route('/')}}" class="logo">
-                                <img src="{{asset('storage/'.$logos['file_link'])}}" alt="{{$logos['title']}}" style="width: 50%">
+                                <img src="{{asset('storage/'.$companies['file_link'])}}" alt="{{$companies['title']}}">
                             </a>
                             <div class="user-btn-action d-flex">
 {{--                                <div class="search-menu-toggle icon-element icon-element-sm shadow-sm mr-2" data-toggle="tooltip" data-placement="top" title="جستجو کردن">--}}
@@ -138,7 +138,7 @@
                             </nav>
 
                         <div class="nav-left-button">
-                            <a href="admission.html" class="btn theme-btn d-none d-lg-inline-block"><i class="la la-user-plus mr-1"></i> سفارش</a>
+                            <a href="admission.html" class="btn theme-btn d-none d-lg-inline-block"> درخواست مشاوره</a>
                         </div>
                     </div>
                     </div>

@@ -21,6 +21,13 @@ class SlideController extends Controller
 
     public function index(Request $request)
     {
+        $thispage       = [
+            'title'         => 'مدیریت اسلاید',
+            'list_title'    => 'لیست اسلاید',
+            'add_title'     => 'افزودن اسلاید',
+            'create_title'  => 'ایجاد اسلاید',
+            'enter_title'   => 'ورود اطلاعات اسلاید',
+        ];
         $slides         =   Slide::all();
         $menupanels     =   Menu_panel::whereStatus(4)->get();
         $submenupanels  =   Submenu_panel::whereStatus(4)->get();
@@ -79,17 +86,24 @@ class SlideController extends Controller
         }
 
         return view('Admin.slides.all')
-            ->with(compact(['menupanels' , 'submenupanels' , 'slides']));
+            ->with(compact(['menupanels' , 'submenupanels' , 'slides' , 'thispage']));
     }
 
     public function create()
     {
+        $thispage       = [
+            'title'         => 'مدیریت اسلاید',
+            'list_title'    => 'لیست اسلاید',
+            'add_title'     => 'افزودن اسلاید',
+            'create_title'  => 'ایجاد اسلاید',
+            'enter_title'   => 'ورود اطلاعات اسلاید',
+        ];
         $menus          =   Menu::whereStatus(4)->get();
         $menupanels     =   Menu_panel::whereStatus(4)->get();
         $submenupanels  =   Submenu_panel::whereStatus(4)->get();
 
         return view('Admin.slides.create')
-            ->with(compact(['menupanels' , 'submenupanels' , 'menus']));
+            ->with(compact(['menupanels' , 'submenupanels' , 'menus' , 'thispage']));
     }
 
     public function store(Request $request)
@@ -144,13 +158,20 @@ class SlideController extends Controller
 
     public function edit($id)
     {
+        $thispage       = [
+            'title'         => 'مدیریت اسلاید',
+            'list_title'    => 'لیست اسلاید',
+            'add_title'     => 'افزودن اسلاید',
+            'create_title'  => 'ایجاد اسلاید',
+            'enter_title'   => 'ورود اطلاعات اسلاید',
+        ];
         $menus          =   Menu::whereStatus(4)->get();
         $slides         =   Slide::whereId($id)->first();
         $menupanels     =   Menu_panel::whereStatus(4)->get();
         $submenupanels  =   Submenu_panel::whereStatus(4)->get();
 
         return view('Admin.slides.edit')
-            ->with(compact(['menupanels' , 'submenupanels'  , 'slides' , 'menus']));
+            ->with(compact(['menupanels' , 'submenupanels'  , 'slides' , 'menus' , 'thispage']));
 
     }
 
