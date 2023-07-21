@@ -178,12 +178,15 @@
         <span class="stroke-shape stroke-shape-6"></span>
         <div class="container">
             <div class="section-heading">
-                <h2 class="section__title mb-3">برخی مشتریان آژانس تبلیغاتی بستا</h2>
+                <h2 class="section__title mb-3">برندهایی که ما در کنارشان بوده ایم</h2>
             </div>
             <div class="client-logo-carousel mt-40px">
                 @foreach($customers as $customer)
                     <a href="#" class="client-logo-item" style="width:100px">
-                        <img src="{{asset('storage/'.$customer->file_link)}}" alt="{{$customer->name}}"/>
+                        @php
+                            $dataArray = json_decode($customer->image, true);
+                        @endphp
+                        <img src="{{asset($dataArray['images']['140'])}}" alt="{{$customer->name}}"/>
                     </a>
                 @endforeach
             </div>

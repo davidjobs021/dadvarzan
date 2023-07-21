@@ -1,6 +1,6 @@
 @extends('Admin.admin')
 @section('title')
-    <title> ایجاد مشتریان </title>
+    <title>{{$thispage['title']}}</title>
     <link href="{{asset('admin/assets/plugins/spectrum-colorpicker/spectrum.css')}}" rel="stylesheet">
     <link href="{{asset('admin/assets/plugins/ion-rangeslider/css/ion.rangeSlider.css')}}" rel="stylesheet">
     <link href="{{asset('admin/assets/plugins/ion-rangeslider/css/ion.rangeSlider.skinFlat.css')}}" rel="stylesheet">
@@ -19,7 +19,7 @@
                         <div class="card custom-card">
                             <div class="card-body" style="background-color: #0000000a;border-radius: 10px 10px 0px 0px;">
                                 <div class="row">
-                                    <div class="col"><a href="{{url()->current()}}" class="btn btn-link btn-xs">ورود اطلاعات مشتریان</a></div>
+                                    <div class="col"><a href="{{url()->current()}}" class="btn btn-link btn-xs">{{$thispage['enter_title']}}</a></div>
                                     <div class="col text-left"><a href="{{url(request()->segment(1).'/'.request()->segment(2))}}" class="btn btn-link btn-xs">بازگشت</a></div>
                                 </div>
                             </div>
@@ -34,6 +34,17 @@
                                             <div class="form-group">
                                                 <p class="mg-b-10">نام برند مشتری</p>
                                                 <input type="text" name="name" id="name" placeholder="نام برند مشتری" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <p class="mg-b-10">نوع مشتری</p>
+                                                <select name="customertype" id="customertype" class="form-control select-lg select2">
+                                                    <option value="">انتخاب کنید</option>
+                                                    @foreach($customertypes as $customertype)
+                                                        <option value="{{$customertype->id}}">{{$customertype->name}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-3">

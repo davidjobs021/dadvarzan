@@ -47,7 +47,26 @@
                                                     <input type="text" name="priority" id="priority" value="{{$customers->priority}}"  class="form-control" />
                                                 </div>
                                             </div>
-
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <p class="mg-b-10">نوع مشتری</p>
+                                                    <select name="customertype" id="customertype" class="form-control select-lg select2">
+                                                        <option value="">انتخاب کنید</option>
+                                                        @foreach($customertypes as $customertype)
+                                                            <option value="{{$customertype->id}}" {{$customertype->id == $customers->customer_type ? 'selected' : ''}}>{{$customertype->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <p class="mg-b-10"> نمایش در صفحه اصلی</p>
+                                                    <select name="homeshow" id="homeshow" class="form-control select-lg select2">
+                                                        <option value="0" {{$customers->homeshow == 0 ? 'selected' : '' }}>عدم نمایش</option>
+                                                        <option value="1" {{$customers->homeshow == 1 ? 'selected' : '' }}>در حال نمایش</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <p class="mg-b-10">انتخاب وضعیت نمایش</p>

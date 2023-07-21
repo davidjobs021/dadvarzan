@@ -2,13 +2,13 @@
 
 namespace App\Jobs;
 
-use App\Models\Dashboard\Portfolio;
+use App\Models\Dashboard\Customer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class UploadFile implements ShouldQueue
 {
@@ -21,14 +21,10 @@ class UploadFile implements ShouldQueue
      */
 
     protected $data;
-    protected $file_link;
-    protected $videos;
 
-    public function __construct($data , $file_link , $videos)
+    public function __construct($data)
     {
-        $this->data         = $data;
-        $this->file_link    = $file_link;
-        $this->videos       = $videos;
+        $this->data = $data;
     }
 
     /**
@@ -38,19 +34,37 @@ class UploadFile implements ShouldQueue
      */
     public function handle()
     {
-            $portfolios = new Portfolio();
-            $portfolios->title       = $this->data['title'];
-            $portfolios->tags        = $this->data['title'];
-            $portfolios->customer_id = $this->data['customer_id'];
-            $portfolios->menu_id     = $this->data['menu_id'];
-            $portfolios->submenu_id  = $this->data['submenu_id'];
-            $portfolios->description = $this->data['text'];
-            $portfolios->status      = $this->data['status'];
-            $portfolios->file_link   = $this->file_link;
-            $portfolios->videos      = $this->videos;
-            $portfolios->user_id     = Auth::user()->id;
 
-            $portfolios->save();
+        $customers = Customer::whereId($this->data['customer_id'])->first();
 
+        $sizes = ["300" , "600" , "900"];
+        //$url['images'] = $this->resize($this->data['imagePath'].$this->data['filename'] , $sizes , $this->data['imagePath'] , $this->data['filename']);
+        foreach ($sizes as $size) {
+            $images[$size] = $this->data['imagePath'] . "{$size}_" . $this->data['filename'];
+
+            Image::make($this->data['imagePath'].$this->data['filename'])
+                ->resize($size, null, function ($constraint) {$constraint->aspectRatio();})
+                ->save(public_path($images[$size]));
+        }
+        //$url['thumb'] = $url['images'][$sizes[0]];
+        //$imagesUrl = $url['thumb'];
+        //$customers->image = json_encode($imagesUrl, true);
     }
+
+
+//    private function resize($path , $sizes , $imagePath , $filename)
+//    {
+//        //dd($path , $sizes , $imagePath , $filename);
+//        $images['original'] = $imagePath . $filename;
+//        foreach ($sizes as $size) {
+//            $images[$size] = $imagePath . "{$size}_" . $filename;
+//
+//            Image::make('/public/customers/images/Kanoon_logo.png')
+//               ->resize($size, null, function ($constraint) {$constraint->aspectRatio();})
+//               ->save(public_path($images[$size]));
+//            //dd($d);
+//        }
+//
+//        return $images;
+//    }
 }

@@ -43,11 +43,7 @@
                                         <thead>
                                         <tr>
                                             <th class="wd-10p"> سریال </th>
-                                            <th class="wd-10p"> اولویت </th>
-                                            <th class="wd-10p"> تصویر </th>
                                             <th class="wd-10p"> نام </th>
-                                            <th class="wd-10p"> معرفی </th>
-                                            <th class="wd-10p"> وضعیت </th>
                                             <th class="wd-10p">ویرایش / حذف </th>
                                         </tr>
                                         </thead>
@@ -62,8 +58,8 @@
             </div>
         </div>
     </div>
-@foreach($customers as $customer)
-    <div id="myModal{{$customer->id}}" class="modal fade" role="dialog">
+@foreach($customertypes as $customertype)
+    <div id="myModal{{$customertype->id}}" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -76,7 +72,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">خیر</button>
-                    <button type="button" id="deletecustomer{{$customer->id}}" class="btn btn-danger" data-id="{{$customer->id}} " data-dismiss="modal">بله</button>
+                    <button type="button" id="deletecustomertype{{$customertype->id}}" class="btn btn-danger" data-id="{{$customertype->id}} " data-dismiss="modal">بله</button>
                 </div>
             </div>
 
@@ -98,21 +94,17 @@
                 ajax: "{{route(request()->segment(2).'.'.'index')}}",
                 columns: [
                     {data: 'id'         , name: 'id'},
-                    {data: 'priority'   , name: 'priority'},
-                    {data: 'file_link'  , name: 'file_link'},
                     {data: 'name'       , name: 'name'},
-                    {data: 'description', name: 'description'},
-                    {data: 'status'     , name: 'status'},
                     {data: 'action'     , name: 'action', orderable: true, searchable: true},
                 ]
             });
 
         });
     </script>
-    @foreach($customers as $customer)
+    @foreach($customertypes as $customertype)
         <script>
             jQuery(document).ready(function(){
-                jQuery('#deletecustomer{{$customer->id}}').click(function(e){
+                jQuery('#deletecustomertype{{$customertype->id}}').click(function(e){
                     e.preventDefault();
                     $.ajaxSetup({
                         headers: {
@@ -120,7 +112,7 @@
                         }
                     });
                     jQuery.ajax({
-                        url: "{{ route('deletecustomers') }}",
+                        url: "{{ route('deletecustomertypes') }}",
                         method: 'delete',
                         data: {
                             "_token": "{{ csrf_token() }}",

@@ -92,6 +92,7 @@ Route::prefix('admin')->middleware(['auth:web' , 'checkAdmin'])->group(function 
     Route::delete('deletecustomers'         , [App\Http\Controllers\Admin\CustomerController::class         , 'deletecustomers'])        ->name('deletecustomers');
     Route::delete('deleteportfolios'        , [App\Http\Controllers\Admin\PortfolioController::class        , 'deleteportfolios'])       ->name('deleteportfolios');
     Route::delete('deletecompany'           , [App\Http\Controllers\Admin\CompanyController::class          , 'deletecompany'])          ->name('deletecompany');
+    Route::delete('deletecustomertypes'     , [App\Http\Controllers\Admin\CustomertypeController::class     , 'deletecustomertypes'])    ->name('deletecustomertypes');
 
     Route::post('slides/img'                , [App\Http\Controllers\Admin\MediaController::class            , 'imgupload'])              ->name('img');
     Route::post('gallerypicmanage/img'      , [App\Http\Controllers\Admin\MediaController::class            , 'imgupload'])              ->name('img');
