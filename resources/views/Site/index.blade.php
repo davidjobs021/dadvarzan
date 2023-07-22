@@ -186,7 +186,7 @@
                         @php
                             $dataArray = json_decode($customer->image, true);
                         @endphp
-                        <img src="{{asset($dataArray['images']['140'])}}" alt="{{$customer->name}}"/>
+                        <img src="{{asset($dataArray['thumb'])}}" alt="{{$customer->name}}"/>
                     </a>
                 @endforeach
             </div>

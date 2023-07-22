@@ -113,6 +113,7 @@ class CustomerController extends Controller
             $customers->name        = $request->input('name');
             $customers->description = $request->input('text');
             $customers->status      = $request->input('status');
+            $customers->home_show   = $request->input('home_show');
             $customers->priority    = $priority;
             $customers->user_id     = Auth::user()->id;
 
@@ -250,7 +251,7 @@ class CustomerController extends Controller
     private function uploadImage($file, $imagePath , $filename)
     {
         $file = $file->move($imagePath, $filename);
-        $sizes = ["140" , "540" , "740"];
+        $sizes = ["200"];
         $url['images'] = $this->resize($file , $sizes ,$imagePath , $filename);
         $url['thumb'] = $url['images'][$sizes[0]];
 
@@ -260,11 +261,11 @@ class CustomerController extends Controller
     private function resize($file , $sizes , $imagePath , $filename)
     {
 
-        $images['original'] = $file;
+        $images['original'] = $imagePath . '/' . $filename;
 
         foreach ($sizes as $size) {
             $images[$size] = $imagePath .'/'. "{$size}_" . $filename;
-            Image::make($file)->resize(null, $size, function ($constraint) {
+            Image::make($file)->resize($size, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path($images[$size]));
         }

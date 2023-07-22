@@ -62,6 +62,15 @@
                                                 <input type="file" name="file_link" id="file_link" class="dropify" data-height="200">
                                             </div>
                                         </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <p class="mg-b-10">نمایش در صفحه اصلی</p>
+                                                <select name="home_show" id="home_show" class="form-control select-lg select2">
+                                                    <option value="1" >نمایش</option>
+                                                    <option value="0" >عدم نمایش</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                         <div class="col-md-12" style="margin-top: 150px;">
                                             <div class="form-group" >
                                                 <p class="mg-b-10">توضیحات</p>
@@ -121,12 +130,14 @@
                 let    _token       = jQuery('input[name="_token"]').val();
                 let    name         = jQuery('#name').val();
                 let    status       = jQuery('#status').val();
+                let    home_show    = jQuery('#home_show').val();
                 let    file_link    = jQuery('#file_link')[0].files[0];
 
                 let formData = new FormData();
                 formData.append('name'    , name);
                 formData.append('status'    , status);
                 formData.append('text'      , text);
+                formData.append('home_show' , home_show);
                 formData.append('file_link' , file_link);
                 formData.append('_token'    , _token);
 
