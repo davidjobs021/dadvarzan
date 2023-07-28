@@ -197,28 +197,34 @@
         <div class="row">
             <div class="col-lg-3 responsive-column-half">
                 <div class="footer-item">
-                    <h3 class="fs-20 font-weight-semi-bold">آژانس تبلیغاتی بستا</h3>
+                    <h3 class="fs-20 font-weight-semi-bold">{{$companies['title']}}</h3>
                     <span class="section-divider section--divider"></span>
 {{--                    <a href="{{route('/')}}">--}}
 {{--                        <img src="{{asset('storage/'.$companies['file_link'])}}" alt="{{$companies['title']}}" class="footer__logo" style="width: 30%">--}}
 {{--                    </a>--}}
-                    <ul class="generic-list-item">
-                        <p>تلاش ما برای معرفی کسب و کار شماست</p>
-                        <p> ما خالق ایده های شما هستیم</p>
-                        <p>آنچه شما از تبلیغات نیاز دارید نزد ماست</p>
+                    <ul class="generic-list-item text-justify">
+                        {!! $companies['summery'] !!}
                     </ul>
                 </div>
             </div>
             <div class="col-lg-3 responsive-column-half">
                 <div class="footer-item">
-                    <h3 class="fs-20 font-weight-semi-bold">بخش های سایت</h3>
+                    <h3 class="fs-20 font-weight-semi-bold">خدمات موسسه حقوقی</h3>
                     <span class="section-divider section--divider"></span>
                     <ul class="generic-list-item">
-                        @foreach($menus as $menu)
-                            @if(in_array($menu->priority , [2,3,4,5]))
-                            <li><a href="{{url($menu->slug)}}">{{$menu->title}}</a></li>
-                            @endif
-                        @endforeach
+                        <li><a href="#">انواع خدمات قرادادی</a></li>
+                        <li><a href="#">انواع خدمات کیفری</a></li>
+                        <li><a href="#">انواع خدمات حقوقی</a></li>
+                        <li><a href="#">انواع خدمات شرکت ها</a></li>
+                        <li><a href="#">انواع خدمات مالیاتی</a></li>
+                        <li><a href="#">انواع خدمات ملکی</a></li>
+                        <li><a href="#">انواع خدمات بیمه ای</a></li>
+
+{{--                        @foreach($menus as $menu)--}}
+{{--                            @if(in_array($menu->priority , [2,3,4,5]))--}}
+{{--                            <li><a href="{{url($menu->slug)}}">{{$menu->title}}</a></li>--}}
+{{--                            @endif--}}
+{{--                        @endforeach--}}
                     </ul>
                 </div>
             </div>
@@ -227,11 +233,13 @@
                     <h3 class="fs-20 font-weight-semi-bold">بخش های آموزشی</h3>
                     <span class="section-divider section--divider"></span>
                     <ul class="generic-list-item">
-                        <li><a href="#">آموزش طراحی وبسایت</a></li>
-                        <li><a href="#">آموزش سئو وبسایت</a></li>
-                        <li><a href="#">آموزش طراحی گرافیک</a></li>
-                        <li><a href="#">آموزش عکاسی</a></li>
-                        <li><a href="#">آموزش چاپ و بسته بندی</a></li>
+                        <li><a href="#">آموزش اصول حقوقی</a></li>
+                        <li><a href="#">آموزش بیمه و مالیات</a></li>
+                        <li><a href="#">آموزش دستورالعمل ها</a></li>
+                        <li><a href="#">آموزش انواع قرارداد</a></li>
+                        <li><a href="#">آموزش انواع دعاوی حقوقی</a></li>
+                        <li><a href="#">آموزش انواع دعاوی مالی</a></li>
+                        <li><a href="#">آموزش انواع دعاوی ملکی</a></li>
                     </ul>
                 </div>
             </div>
@@ -240,15 +248,15 @@
                     <h3 class="fs-20 font-weight-semi-bold">راه های ارتباطی</h3>
                     <span class="section-divider section--divider"></span>
                         <ul class="social-icons social-icons-styled">
-                            <li class="mr-1"><a href="https://facebook.com/BestaAgency"       class="facebook-bg"> <i class="la la-facebook"> </i></a></li>
-                            <li class="mr-1"><a href="https://twitter.com/BestaAgency"        class="twitter-bg">  <i class="la la-twitter">  </i></a></li>
-                            <li class="mr-1"><a href="https://instagram.com/bestagroup.ir"    class="instagram-bg"><i class="la la-instagram"></i></a></li>
-                            <li class="mr-1"><a href="https://linkedin.com/company/bestagroup"class="linkedin-bg"> <i class="la la-linkedin"> </i></a></li>
+                            <li class="mr-1"><a href="{{$companies['facebook']}}"   class="facebook-bg"> <i class="la la-facebook"> </i></a></li>
+                            <li class="mr-1"><a href="{{$companies['twitter']}}"    class="twitter-bg">  <i class="la la-twitter">  </i></a></li>
+                            <li class="mr-1"><a href="{{$companies['instagram']}}"  class="instagram-bg"><i class="la la-instagram"></i></a></li>
+                            <li class="mr-1"><a href="{{$companies['linkedin']}}"   class="linkedin-bg"> <i class="la la-linkedin"> </i></a></li>
                         </ul>
                     <ul class="generic-list-item pt-4">
-                        <li style="direction:ltr;text-align: left"><a href="tel:+989128119938">+989128119938</a></li>
-                        <li style="direction:ltr;text-align: left"><a href="tel:+982177116213">021-77116213</a></li>
-                        <li style="direction:ltr;text-align: left"><a href="mailto:info@bestagroup.ir">info@bestagroup.ir</a></li>
+                        <li style="direction:ltr;text-align: left"><a href="tel:{{$companies['mobile']}}">{{$companies['mobile']}}</a></li>
+                        <li style="direction:ltr;text-align: left"><a href="tel:{{$companies['tel']}}">{{$companies['tel']}}</a></li>
+                        <li style="direction:ltr;text-align: left"><a href="mailto:{{$companies['email']}}">{{$companies['email']}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -259,7 +267,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
-                    <p class="copy-desc">کلیه حقوق مادی و معنوی وبسایت برای آژانس تخصصی تبلیغات بستا محفوظ می باشد</p>
+                    <p class="copy-desc">کلیه حقوق مادی و معنوی وبسایت برای {{$companies['title']}} محفوظ می باشد</p>
                 </div>
                 <div class="col-lg-6">
                     <div class="d-flex flex-wrap align-items-center justify-content-end">

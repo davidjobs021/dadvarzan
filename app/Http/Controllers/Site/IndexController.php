@@ -17,7 +17,7 @@ class IndexController extends Controller
 
         $menus              = Menu::select('id' , 'title' , 'slug' , 'submenu' , 'priority')->whereStatus(4)->orderBy('priority')->get();
         $thispage           = Menu::select('title' , 'slug' , 'tab_title' , 'page_title' , 'keyword' , 'page_description')->whereSlug('/')->first();
-        $companies          = Company::select('title' ,'tel' , 'mobile' ,'email' ,'ceo' , 'address' , 'instagram' , 'telegram' , 'facebook' , 'linkedin' , 'file_link')->first();
+        $companies          = Company::first();
         $submenus           = Submenu::select('title' , 'slug' , 'menu_id')->whereStatus(4)->get();
         $slides             = Slide::select('title1'  , 'title2', 'title3' , 'file_link')->whereMenu_id(1)->whereStatus(4)->first();
         $customers          = Customer::select('name' , 'image')->whereStatus(4)->whereHome_show(1)->get();

@@ -214,7 +214,7 @@
                             <a href="#" class="flip-content d-flex align-items-center justify-content-center btn-icon">
                                 <i class="fe fe-code"></i>
                                 <div>
-                                    <h3 class="flip-title">مشاهده نمونه کارها</h3>
+                                    <h3 class="flip-title">مشاهده جزئیات</h3>
                                 </div>
                             </a>
                         </div>
@@ -234,7 +234,7 @@
                             <img src="{{asset('site/images/img-loading.png')}}" data-src="{{asset('site/images/img2.jpg')}}" alt="" class="flip-img lazy" />
                             <a href="#" class="flip-content d-flex align-items-center justify-content-center">
                                 <div>
-                                    <h3 class="flip-title">مشاهده نمونه کارها</h3>
+                                    <h3 class="flip-title">مشاهده جزئیات</h3>
                                 </div>
                             </a>
                         </div>
@@ -400,17 +400,13 @@
         <div class="container">
             <div class="cta-content-wrap text-center position-relative">
                 <div class="section-heading">
-                    <h2 class="section__title fs-20 lh-60 text-white">برای هرگونه سوال و یا درخواست با مشاورین <strong>آژانس تخصصی تبلیغات بستا</strong> تماس حاصل نمایید.<br> کارشناسان بستا در ساعات اداری پاسخگوی شما می باشند.</h2>
+                    <h2 class="section__title fs-20 lh-60 text-white">برای هرگونه سوال و یا درخواست با مشاورین <strong>موسسه حقوقی دادورزان امین</strong> تماس حاصل نمایید.<br> کارشناسان ما در ساعات اداری پاسخگوی شما می باشند.</h2>
                 </div>
-                <!-- end section-heading -->
                 <div class="cat-btn-box mt-35px">
                     <a href="tel:+989128119938" class="btn theme-btn theme-btn-white">تماس باما <i class="la la-arrow-left icon ml-1"></i></a>
                 </div>
-                <!-- end cat-btn-box -->
             </div>
-            <!-- end cta-content-wrap -->
         </div>
-        <!-- end container -->
     </section>
 
 @endsection

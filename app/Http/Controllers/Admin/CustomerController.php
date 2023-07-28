@@ -63,7 +63,7 @@ class CustomerController extends Controller
                 })
                 ->addColumn('file_link', function ($data) {
                     $dataArray  = json_decode($data->image , true);
-                    return '<img src="' . asset($dataArray['images']['140']) . '"  width="100" class="img-rounded" align="center" />';
+                    return '<img src="' . asset($dataArray['thumb']) . '"  width="100" class="img-rounded" align="center" />';
                     })
                 ->addColumn('action', function ($data) {
                     $actionBtn = '<a href="' . route('customer-manage.edit', $data->id) . '" class="btn ripple btn-outline-info btn-icon" style="float: right;margin: 0 5px;"><i class="fe fe-edit-2"></i></a>
