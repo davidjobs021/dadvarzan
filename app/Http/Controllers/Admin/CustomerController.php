@@ -109,6 +109,7 @@ class CustomerController extends Controller
         }
 
         try{
+
             $customers = new Customer();
             $customers->name        = $request->input('name');
             $customers->description = $request->input('text');
@@ -116,14 +117,23 @@ class CustomerController extends Controller
             $customers->home_show   = $request->input('home_show');
             $customers->priority    = $priority;
             $customers->user_id     = Auth::user()->id;
+            $file                   = $request->file('file_link');
+            $imagePath              = 'customers/images';
+            $filename               = Str::random(30).".".$file->clientExtension();
 
-            $file               = $request->file('file_link');
-            $imagePath          = 'customers/images';
-            $filename           = Str::random(30).".".$file->clientExtension();
-            $imagesUrl          = $this->uploadImage($file , $imagePath , $filename);
-            $customers->image = json_encode($imagesUrl, true);
-
+            $newImage               = Image::make($file);
+            $newImage->fit(200, 200);
+            $customers->image = $imagePath.'/'.$filename;
+            $newImage->save($imagePath .'/'. $filename);
             $result = $customers->save();
+
+//            $file               = $request->file('file_link');
+//            $imagePath          = 'customers/images';
+//            $filename           = Str::random(30).".".$file->clientExtension();
+//            $imagesUrl          = $this->uploadImage($file , $imagePath , $filename);
+//            $customers->image = json_encode($imagesUrl, true);
+
+            //$result = $customers->save();
 
 //            $data = [
 //            'customer_id' => $customers->id,
@@ -248,28 +258,28 @@ class CustomerController extends Controller
         return response()->json(['success'=>$success , 'subject' => $subject, 'flag' => $flag, 'message' => $message]);
     }
 
-    private function uploadImage($file, $imagePath , $filename)
-    {
-        $file = $file->move($imagePath, $filename);
-        $sizes = ["200"];
-        $url['images'] = $this->resize($file , $sizes ,$imagePath , $filename);
-        $url['thumb'] = $url['images'][$sizes[0]];
+//    private function uploadImage($file, $imagePath , $filename)
+//    {
+//        $file = $file->move($imagePath, $filename);
+//        $sizes = ["200"];
+//        $url['images'] = $this->resize($file , $sizes ,$imagePath , $filename);
+//        $url['thumb'] = $url['images'][$sizes[0]];
+//
+//        return $url;
+//    }
 
-        return $url;
-    }
-
-    private function resize($file , $sizes , $imagePath , $filename)
-    {
-
-        $images['original'] = $imagePath . '/' . $filename;
-
-        foreach ($sizes as $size) {
-            $images[$size] = $imagePath .'/'. "{$size}_" . $filename;
-            Image::make($file)->resize($size, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path($images[$size]));
-        }
-
-        return $images;
-    }
+//    private function resize($file , $sizes , $imagePath , $filename)
+//    {
+//
+//        $images['original'] = $imagePath . '/' . $filename;
+//
+//        foreach ($sizes as $size) {
+//            $images[$size] = $imagePath .'/'. "{$size}_" . $filename;
+//            Image::make($file)->resize($size, null, function ($constraint) {
+//                $constraint->aspectRatio();
+//            })->save(public_path($images[$size]));
+//        }
+//
+//        return $images;
+//    }
 }

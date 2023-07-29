@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div class="hero-feature-wrap bg-gradient overflow-hidden">
+            <div class="hero-feature-wrap overflow-hidden" style="background-color: #cea54a">
                 <span class="ring-shape ring--shape ring-shape-1"></span>
                 <span class="ring-shape ring--shape ring-shape-2"></span>
                 <span class="ring-shape ring--shape ring-shape-3"></span>
@@ -183,10 +183,11 @@
             <div class="client-logo-carousel mt-40px">
                 @foreach($customers as $customer)
                     <a href="#" class="client-logo-item" style="width:100px">
-                        @php
-                            $dataArray = json_decode($customer->image, true);
-                        @endphp
-                        <img src="{{asset($dataArray['thumb'])}}" alt="{{$customer->name}}"/>
+{{--                        @php--}}
+{{--                            $dataArray = json_decode($customer->image, true);--}}
+{{--                        @endphp--}}
+{{--                        <img src="{{asset($dataArray['thumb'])}}" alt="{{$customer->name}}"/>--}}
+                        <img src="{{asset($customer->image)}}" alt="{{$customer->name}}"/>
                     </a>
                 @endforeach
             </div>
@@ -350,7 +351,7 @@
                 <div class="col-lg-6">
                     <div class="about-content pb-5">
                         <div class="section-heading">
-                            <h2 class="section__title">ارائه دهنده آنلاین خدمات حقوقی کسب‌وکارها</h2>
+                            <h2 class="section__title">ارائه دهنده آنلاین خدمات حقوقی </h2>
                             <span class="section-divider"></span>
                             <p class="section__desc text-justify">
                                 تفاوتی ندارد یک کسب و کار کوچک داشته باشید یا یک هلدینگ بین المللی، در برابر چالش‌های حقوقی همواره نیاز به یک مشاور حقوقی با تجربه و قراردادهای منسجم خواهید داشت. وینداد، این امکان را برای شما به ارمغان آورده است تا تمام امور حقوقی و ثبتی خود را بدون دغدغه و به صورت یکپارچه به تیم متخصص و باتجربه‌ای بسپارید که سال‌ها در این حوزه فعالیت داشته و به انواع مسائل و قوانین کسب و کار تسلط بالایی دارند

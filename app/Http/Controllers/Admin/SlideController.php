@@ -62,7 +62,7 @@ class SlideController extends Controller
                     }
                 })
                 ->addColumn('file_link', function ($data) {
-                    return '<img src="'.asset('storage/'.$data->file_link).'"  width="200" class="img-rounded" align="center" />';
+                    return '<img src="'.asset('storage/'.$data->file_link).'" class="img-rounded" align="center" />';
                 })
                 ->addColumn('action', function ($data) {
                     $actionBtn = '<a href="' . route('slide-manage.edit', $data->id) . '" class="btn ripple btn-outline-info btn-icon" style="float: right;margin: 0 5px;"><i class="fe fe-edit-2"></i></a>
