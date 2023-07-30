@@ -30,7 +30,7 @@
                                             <th class="wd-10p"> تصویر </th>
                                             <th class="wd-10p"> تیتر1 </th>
                                             <th class="wd-10p"> تیتر2 </th>
-                                            <th class="wd-10p"> تیتر3 </th>
+                                            <th class="wd-10p"> کلمات </th>
                                             <th class="wd-10p"> منو نمایش </th>
                                             <th class="wd-10p"> وضعیت </th>
                                             <th class="wd-10p">ویرایش / حذف </th>
@@ -86,7 +86,7 @@
                     {data: 'file_link' , name: 'file_link'},
                     {data: 'title1'    , name: 'title1'},
                     {data: 'title2'    , name: 'title2'},
-                    {data: 'title3'    , name: 'title3'},
+                    {data: 'word'      , name: 'word'},
                     {data: 'menu'      , name: 'menu'},
                     {data: 'status'    , name: 'status'},
                     {data: 'action'    , name: 'action', orderable: true, searchable: true},

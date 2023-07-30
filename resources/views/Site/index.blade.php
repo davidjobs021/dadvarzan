@@ -11,19 +11,14 @@
                     <div class="section-heading">
                         <h1 class="section__title text-white fs-40 lh-60 pb-3">{{$slides['title1']}}</h1>
                         <h2 class="section__title text-white fs-30 lh-60 pb-3 cd-headline zoom">
-                            کار ما وکالت در زمینه
+                             ما کنار شما هستیم در حوزه های
                             <span class="cd-words-wrapper" style="width: 351.438px;">
-                                    <b class="is-hidden">ملکی</b>
-                                    <b class="is-hidden">قضایی</b>
-                                    <b class="is-hidden">شرکتی</b>
-                                    <b class="is-hidden">دعاوی</b>
-                                    <b class="is-hidden">قراردادی</b>
-                                    <b class="is-hidden">قتل</b>
-                                    <b class="is-hidden">دزدی و اختلاس</b>
-                                    <b class="is-visible">نفت و پتروشیمی</b>
-                                    <b class="is-hidden">کارخانجات</b>
+                                <b class="is-visible">حقوقی</b>
+                                @foreach (json_decode($slides['word']) as $value)
+                                    <b class="is-hidden">{{$value}}</b>
+                                @endforeach
                                 </span>
-                            می باشد.
+
                         </h2>
                         <p class="section__desc text-white pb-4">
                             {{$slides['title2']}} <br />

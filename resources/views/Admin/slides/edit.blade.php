@@ -71,6 +71,12 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div  class="col-md-6">
+                                                <div class="form-group">
+                                                    <p class="mg-b-10">موارد نمایش در اسلاید</p>
+                                                    <input type="text" name="word" id="word" value="{{implode("،" , json_decode($slides['word']))}}" class="form-control" />
+                                                </div>
+                                            </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <p class="mg-b-10">تصویر اسلاید</p>
