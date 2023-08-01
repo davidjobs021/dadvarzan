@@ -34,26 +34,27 @@ class SlideController extends Controller
 
         if ($request->ajax()) {
             $data = DB::table('slides')->join('menus' , 'slides.menu_id' , '=' , 'menus.id')
-                ->select('menus.title as menu' , 'slides.id', 'slides.title1', 'slides.title2', 'slides.title3', 'slides.status', 'slides.file_link')->get();
+                ->select('menus.title as menu' , 'slides.id', 'slides.title1', 'slides.title2', 'slides.title3', 'slides.word', 'slides.status', 'slides.file_link')
+                ->where('slides.status' , 4 )->get();
 
             return Datatables::of($data)
 
-                ->editColumn('id', function ($data) {
+                ->addColumn('id', function ($data) {
                     return ($data->id);
                 })
-                ->editColumn('title1', function ($data) {
+                ->addColumn('title1', function ($data) {
                     return ($data->title1);
                 })
-                ->editColumn('title2', function ($data) {
+                ->addColumn('title2', function ($data) {
                     return ($data->title2);
                 })
-                ->editColumn('title3', function ($data) {
-                    return ($data->title3);
+                ->addColumn('word', function ($data) {
+                    return (json_decode($data->word));
                 })
-                ->editColumn('menu', function ($data) {
+                ->addColumn('menu', function ($data) {
                     return ($data->menu);
                 })
-                ->editColumn('status', function ($data) {
+                ->addColumn('status', function ($data) {
                     if ($data->status == "0") {
                         return "عدم نمایش";
                     }
@@ -108,14 +109,15 @@ class SlideController extends Controller
 
     public function store(Request $request)
     {
-        try{
 
+        try{
             $slides = new Slide();
             $slides->title1      = $request->input('title1');
             $slides->title2      = $request->input('title2');
             $slides->title3      = $request->input('title3');
             $slides->menu_id     = $request->input('menu_id');
             $slides->text        = $request->input('text');
+            $slides->word        = json_encode(explode('،', $request->input('word')));
             $slides->status      = $request->input('status');
             $slides->user_id     = Auth::user()->id;
 
@@ -184,6 +186,7 @@ class SlideController extends Controller
             $slide->title3      = $request->input('title3');
             $slide->menu_id     = $request->input('menu_id');
             $slide->text        = $request->input('text');
+            $slide->word        = json_encode(explode('،', $request->input('word')));
             $slide->status      = $request->input('status');
 
             if ($request->hasfile('file_link')) {

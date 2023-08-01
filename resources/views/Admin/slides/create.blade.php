@@ -74,6 +74,16 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div  class="col-md-3">
+                                            <div class="form-group">
+                                            </div>
+                                        </div>
+                                        <div  class="col-md-6">
+                                            <div class="form-group">
+                                                <p class="mg-b-10">موارد نمایش در اسلاید</p>
+                                                <input type="text" name="word" id="word" class="form-control" placeholder="کلمه1 ، کلمه2 ، کلمه3 ..." />
+                                            </div>
+                                        </div>
                                         <div class="col-md-12">
                                             <div class="form-group" style="margin-top: 65px;">
                                                 <p class="mg-b-10">توضیحات</p>
@@ -136,6 +146,7 @@
                 let    title2       = jQuery('#title2').val();
                 let    title3       = jQuery('#title3').val();
                 let    menu_id      = jQuery('#menu_id').val();
+                let    word         = jQuery('#word').val();
                 let    status       = jQuery('#status').val();
                 //let    editor       = jQuery('#editor').val();
                 let    file_link    = jQuery('#file_link')[0].files[0];
@@ -147,6 +158,7 @@
                 formData.append('menu_id'   , menu_id);
                 formData.append('status'    , status);
                 formData.append('text'      , text);
+                formData.append('word'      , word);
                 formData.append('file_link' , file_link);
                 formData.append('_token'    , _token);
 
