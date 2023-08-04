@@ -1,8 +1,20 @@
 @extends('master')
 @section('style')
+    <meta name="description"         content="{{$thispage->page_description}}">
+    <meta name="keyword"             content="{{implode("،" , json_decode($thispage->keyword))}}">
+    <meta name="twitter:card"        content="summary" />
+    <meta name="twitter:title"       content="{{$thispage->tab_title}}" />
+    <meta name="twitter:description" content="{{$thispage->page_description}}" />
+    <meta itemprop="name"            content="{{$thispage->tab_title}}">
+    <meta itemprop="description"     content="{{$thispage->page_description}}">
+    <meta property="og:url"          content="{{url()->current()}}" />
+    <meta property="og:title"        content="{{$thispage->tab_title}}"/>
+    <meta property="og:description"  content="{{$thispage->page_description}}" />
+    <link rel="canonical" href="{{url()->current()}}" />
+
     <link rel="stylesheet" href="{{asset('site/css/animated-headline.css')}}" />
     <title>{{$thispage->tab_title}}</title>
-@endsection
+    @endsection
 @section('main')
     <section class="hero-area position-relative hero-area-2">
         <div class="hero-slider-item" style="background-image: @if($slides) url({{asset('storage/'.$slides['file_link'])}}) @endif ;">
@@ -195,18 +207,21 @@
                 <h2 class="section__title">خدمات حقوقی دادورزان امین</h2>
             </div>
             <div class="row pt-50px">
-                <div class="col-lg-4 responsive-column-half">
+                @foreach($services as $service)
+
+                    <div class="{{$loop->index + 1 > 3 ? 'col-lg-3' : 'col-lg-4'}} responsive-column-half">
+
                     <div class="flip-box">
                         <div class="flip-box-front">
-                            <img src="{{asset('site/images/img-loading.png')}}" data-src="{{asset('site/images/img1.jpg')}}" alt="" class="flip-img lazy" />
+                            <img src="{{asset('site/images/img-loading.png')}}" data-src="{{asset($service->image)}}" alt="{{$service->title}}" class="flip-img lazy" />
                             <a href="#" class="flip-content d-flex align-items-center justify-content-center">
                                 <div>
-                                    <h3 class="flip-title mb-1">خدمات قراردادی</h3>
+                                    <h3 class="flip-title mb-1">{{$service->title}}</h3>
                                 </div>
                             </a>
                         </div>
                         <div class="flip-box-back">
-                            <img src="{{asset('site/images/img-loading.png')}}" data-src="{{asset('site/images/img1.jpg')}}" alt="" class="flip-img lazy" />
+                            <img src="{{asset('site/images/img-loading.png')}}" data-src="{{asset($service->image)}}" alt="{{$service->title}}" class="flip-img lazy" />
                             <a href="#" class="flip-content d-flex align-items-center justify-content-center btn-icon">
                                 <i class="fe fe-code"></i>
                                 <div>
@@ -216,126 +231,127 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 responsive-column-half">
-                    <div class="flip-box">
-                        <div class="flip-box-front">
-                            <img src="{{asset('site/images/img-loading.png')}}" data-src="{{asset('site/images/img2.jpg')}}" alt="" class="flip-img lazy" />
-                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">
-                                <div>
-                                    <h3 class="flip-title mb-1">خدمات کیفری</h3>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="flip-box-back">
-                            <img src="{{asset('site/images/img-loading.png')}}" data-src="{{asset('site/images/img2.jpg')}}" alt="" class="flip-img lazy" />
-                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">
-                                <div>
-                                    <h3 class="flip-title">مشاهده جزئیات</h3>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 responsive-column-half">
-                    <div class="flip-box">
-                        <div class="flip-box-front">
-                            <img src="{{asset('site/images/img-loading.png')}}" data-src="{{asset('site/images/img3.jpg')}}" alt="" class="flip-img lazy" />
-                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">
-                                <div>
-                                    <h3 class="flip-title mb-1">خدمات حقوقی</h3>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="flip-box-back">
-                            <img src="{{asset('site/images/img-loading.png')}}" data-src="{{asset('site/images/img3.jpg')}}" alt="" class="flip-img lazy" />
-                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">
-                                <div>
-                                    <h3 class="flip-title">مشاهده جزئیات</h3>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 responsive-column-half">
-                    <div class="flip-box">
-                        <div class="flip-box-front">
-                            <img src="{{asset('site/images/img-loading.png')}}" data-src="{{asset('site/images/img4.jpg')}}" alt="" class="flip-img lazy" />
-                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">
-                                <div>
-                                    <h3 class="flip-title mb-1">خدمات شرکت ها</h3>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="flip-box-back">
-                            <img src="{{asset('site/images/img-loading.png')}}" data-src="{{asset('site/images/img4.jpg')}}" alt="" class="flip-img lazy" />
-                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">
-                                <div>
-                                    <h3 class="flip-title">مشاهده جزئیات</h3>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 responsive-column-half">
-                    <div class="flip-box">
-                        <div class="flip-box-front">
-                            <img src="{{asset('site/images/img-loading.png')}}" data-src="site/images/img5.jpg" alt="" class="flip-img lazy" />
-                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">
-                                <div>
-                                    <h3 class="flip-title mb-1">خدمات مالیاتی</h3>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="flip-box-back">
-                            <img src="{{asset('site/images/img-loading.png')}}" data-src="site/images/img5.jpg" alt="" class="flip-img lazy" />
-                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">
-                                <div>
-                                    <h3 class="flip-title">مشاهده جزئیات</h3>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 responsive-column-half">
-                    <div class="flip-box">
-                        <div class="flip-box-front">
-                            <img src="{{asset('site/images/img-loading.png')}}" data-src="site/images/img6.jpg" alt="" class="flip-img lazy" />
-                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">
-                                <div>
-                                    <h3 class="flip-title mb-1">خدمات ملکی</h3>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="flip-box-back">
-                            <img src="{{asset('site/images/img-loading.png')}}" data-src="site/images/img6.jpg" alt="" class="flip-img lazy" />
-                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">
-                                <div>
-                                    <h3 class="flip-title">مشاهده جزئیات</h3>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 responsive-column-half">
-                    <div class="flip-box">
-                        <div class="flip-box-front">
-                            <img src="{{asset('site/images/img-loading.png')}}" data-src="site/images/img8.jpg" alt="" class="flip-img lazy" />
-                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">
-                                <div>
-                                    <h3 class="flip-title mb-1">خدمات بیمه ای</h3>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="flip-box-back">
-                            <img src="{{asset('site/images/img-loading.png')}}" data-src="site/images/img8.jpg" alt="" class="flip-img lazy" />
-                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">
-                                <div>
-                                    <h3 class="flip-title">مشاهده جزئیات</h3>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+{{--                <div class="col-lg-4 responsive-column-half">--}}
+{{--                    <div class="flip-box">--}}
+{{--                        <div class="flip-box-front">--}}
+{{--                            <img src="{{asset('site/images/img-loading.png')}}" data-src="{{asset('site/images/img2.jpg')}}" alt="" class="flip-img lazy" />--}}
+{{--                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">--}}
+{{--                                <div>--}}
+{{--                                    <h3 class="flip-title mb-1">خدمات کیفری</h3>--}}
+{{--                                </div>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                        <div class="flip-box-back">--}}
+{{--                            <img src="{{asset('site/images/img-loading.png')}}" data-src="{{asset('site/images/img2.jpg')}}" alt="" class="flip-img lazy" />--}}
+{{--                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">--}}
+{{--                                <div>--}}
+{{--                                    <h3 class="flip-title">مشاهده جزئیات</h3>--}}
+{{--                                </div>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-4 responsive-column-half">--}}
+{{--                    <div class="flip-box">--}}
+{{--                        <div class="flip-box-front">--}}
+{{--                            <img src="{{asset('site/images/img-loading.png')}}" data-src="{{asset('site/images/img3.jpg')}}" alt="" class="flip-img lazy" />--}}
+{{--                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">--}}
+{{--                                <div>--}}
+{{--                                    <h3 class="flip-title mb-1">خدمات حقوقی</h3>--}}
+{{--                                </div>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                        <div class="flip-box-back">--}}
+{{--                            <img src="{{asset('site/images/img-loading.png')}}" data-src="{{asset('site/images/img3.jpg')}}" alt="" class="flip-img lazy" />--}}
+{{--                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">--}}
+{{--                                <div>--}}
+{{--                                    <h3 class="flip-title">مشاهده جزئیات</h3>--}}
+{{--                                </div>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-3 responsive-column-half">--}}
+{{--                    <div class="flip-box">--}}
+{{--                        <div class="flip-box-front">--}}
+{{--                            <img src="{{asset('site/images/img-loading.png')}}" data-src="{{asset('site/images/img4.jpg')}}" alt="" class="flip-img lazy" />--}}
+{{--                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">--}}
+{{--                                <div>--}}
+{{--                                    <h3 class="flip-title mb-1">خدمات شرکت ها</h3>--}}
+{{--                                </div>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                        <div class="flip-box-back">--}}
+{{--                            <img src="{{asset('site/images/img-loading.png')}}" data-src="{{asset('site/images/img4.jpg')}}" alt="" class="flip-img lazy" />--}}
+{{--                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">--}}
+{{--                                <div>--}}
+{{--                                    <h3 class="flip-title">مشاهده جزئیات</h3>--}}
+{{--                                </div>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-3 responsive-column-half">--}}
+{{--                    <div class="flip-box">--}}
+{{--                        <div class="flip-box-front">--}}
+{{--                            <img src="{{asset('site/images/img-loading.png')}}" data-src="site/images/img5.jpg" alt="" class="flip-img lazy" />--}}
+{{--                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">--}}
+{{--                                <div>--}}
+{{--                                    <h3 class="flip-title mb-1">خدمات مالیاتی</h3>--}}
+{{--                                </div>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                        <div class="flip-box-back">--}}
+{{--                            <img src="{{asset('site/images/img-loading.png')}}" data-src="site/images/img5.jpg" alt="" class="flip-img lazy" />--}}
+{{--                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">--}}
+{{--                                <div>--}}
+{{--                                    <h3 class="flip-title">مشاهده جزئیات</h3>--}}
+{{--                                </div>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-3 responsive-column-half">--}}
+{{--                    <div class="flip-box">--}}
+{{--                        <div class="flip-box-front">--}}
+{{--                            <img src="{{asset('site/images/img-loading.png')}}" data-src="site/images/img6.jpg" alt="" class="flip-img lazy" />--}}
+{{--                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">--}}
+{{--                                <div>--}}
+{{--                                    <h3 class="flip-title mb-1">خدمات ملکی</h3>--}}
+{{--                                </div>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                        <div class="flip-box-back">--}}
+{{--                            <img src="{{asset('site/images/img-loading.png')}}" data-src="site/images/img6.jpg" alt="" class="flip-img lazy" />--}}
+{{--                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">--}}
+{{--                                <div>--}}
+{{--                                    <h3 class="flip-title">مشاهده جزئیات</h3>--}}
+{{--                                </div>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-3 responsive-column-half">--}}
+{{--                    <div class="flip-box">--}}
+{{--                        <div class="flip-box-front">--}}
+{{--                            <img src="{{asset('site/images/img-loading.png')}}" data-src="site/images/img8.jpg" alt="" class="flip-img lazy" />--}}
+{{--                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">--}}
+{{--                                <div>--}}
+{{--                                    <h3 class="flip-title mb-1">خدمات بیمه ای</h3>--}}
+{{--                                </div>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                        <div class="flip-box-back">--}}
+{{--                            <img src="{{asset('site/images/img-loading.png')}}" data-src="site/images/img8.jpg" alt="" class="flip-img lazy" />--}}
+{{--                            <a href="#" class="flip-content d-flex align-items-center justify-content-center">--}}
+{{--                                <div>--}}
+{{--                                    <h3 class="flip-title">مشاهده جزئیات</h3>--}}
+{{--                                </div>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
         </div>
     </section>

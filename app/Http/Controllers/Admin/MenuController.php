@@ -97,9 +97,10 @@ class MenuController extends Controller
             $menu->title            = $request->input('title');
             $menu->tab_title        = $request->input('tab_title');
             $menu->page_title       = $request->input('page_title');
-            $menu->keyword          = $request->input('keyword');
+            $menu->keyword          = json_encode(explode("،" , $request->input('keyword')));
             $menu->page_description = $request->input('page_description');
             $menu->submenu          = $request->input('submenu');
+            $menu->submenu_route    = $request->input('submenu');
             $menu->status           = 4;
             $menu->priority         = $menucount['priority'] + 1;
             $menu->user_id          = Auth::user()->id;
@@ -133,7 +134,7 @@ class MenuController extends Controller
 
     public function edit($id)
     {
-        $menus              = Menu::whereId($id)->get();
+        $menus              = Menu::whereId($id)->first();
         $menupanels         = Menu_panel::whereStatus(4)->get();
         $submenupanels      = Submenu_panel::whereStatus(4)->get();
         return view('Admin.menus.edit')
@@ -145,11 +146,12 @@ class MenuController extends Controller
     {
         try{
         $menu = Menu::findOrfail($id);
-        $menu->title        = $request->input('title');
-        $menu->submenu      = $request->input('submenu');
-        $menu->keyword      = $request->input('keyword');
-        $menu->description  = $request->input('description');
-        $menu->status       = $request->input('status');
+        $menu->title            = $request->input('title');
+        $menu->submenu          = $request->input('submenu');
+        $menu->submenu_route    = $request->input('submenu');
+        $menu->keyword          = json_encode(explode("،" , $request->input('keyword')));
+        $menu->page_description = $request->input('description');
+        $menu->status           = $request->input('status');
 
         $result = $menu->update();
             if ($result == true) {

@@ -48,18 +48,18 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <p class="mg-b-10">کلمات کلیدی</p>
-                                                <input type="text" name="keyword" id="keyword" data-required="1" placeholder="کلمات کلیدی منو سایت را وارد کنید" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
                                                 <p class="mg-b-10">زیر منو سایت</p>
                                                 <select name="submenu" id="submenu" class="form-control select2">
                                                     <option value="">انتخاب کنید</option>
                                                     <option value="1">دارد</option>
                                                     <option value="0">ندارد</option>
                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <p class="mg-b-10">کلمات کلیدی</p>
+                                                <input type="text" name="keyword" id="keyword" data-required="1" placeholder="کلمات کلیدی را اینگونه وارد کنید. کلمه1،کلمه2،کلمه3،کلمه4و..." class="form-control" />
                                             </div>
                                         </div>
                                         <div class="col-md-12">

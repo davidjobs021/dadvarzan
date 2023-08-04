@@ -10,7 +10,10 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 
 class CompanyController extends Controller
@@ -49,8 +52,8 @@ class CompanyController extends Controller
                 ->addColumn('ceo', function ($data) {
                     return ($data->ceo);
                 })
-                ->addColumn('file_link', function ($data) {
-                    return '<img src="'.asset('storage/'.$data->file_link).'"  width="200" class="img-rounded" align="center" />';
+                ->addColumn('image', function ($data) {
+                    return '<img src="'.asset($data->image).'" class="img-rounded" align="center" />';
 
                 })
                 ->editColumn('action', function ($data) {
@@ -59,7 +62,7 @@ class CompanyController extends Controller
 
                     return $actionBtn;
                 })
-                ->rawColumns(['action' , 'file_link'])
+                ->rawColumns(['action' , 'image'])
                 ->make(true);
         }
 
@@ -102,13 +105,28 @@ class CompanyController extends Controller
             $companies->linkedin        = $request->input('linkedin');
             $companies->user_id         = Auth::user()->id;
 
-            if ($request->file('file_link')) {
+            if ($request->file('image')) {
 
-                $file       = $request->file('file_link');
-                $imagePath  ="public/companies";
-                $imageName  = Str::random(30).".".$file->clientExtension();
-                $companies->file_link = 'companies/'.$imageName;
-                $file->storeAs($imagePath, $imageName);
+                $file       = $request->file('image');
+                $imagePath  =public_path("companies");
+                $imagelink  ="companies";
+                $imageName1  = Str::random(30).".".$file->clientExtension();
+                $favicon    = Image::make($file);
+                $favicon->fit(80, 80);
+                $companies->image = $imagelink.'/'.$imageName1;
+                $favicon->save($imagePath .'/'. $imageName1);
+
+                $imageName2  = Str::random(30).".".$file->clientExtension();
+                $favicon16  = Image::make($file);
+                $favicon16->resize(16, 16);
+                $companies->favicon16 = $imagelink.'/'.$imageName2;
+                $favicon16->save($imagePath .'/'. $imageName2);
+
+                $imageName3  = Str::random(30).".".$file->clientExtension();
+                $favicon32  = Image::make($file);
+                $favicon32->resize(32, 32);
+                $companies->favicon32 = $imagelink.'/'.$imageName3;
+                $favicon32->save($imagePath .'/'. $imageName3);
 
             }
 
@@ -144,7 +162,7 @@ class CompanyController extends Controller
         $thispage       = [
             'title' => 'ویرایش اطلاعات (موسسه/شرکت)'
         ];
-        $companies      =   Company::whereId($id)->get();
+        $companies      =   Company::whereId($id)->first();
         $menupanels     =   Menu_panel::whereStatus(4)->get();
         $submenupanels  =   Submenu_panel::whereStatus(4)->get();
 
@@ -174,30 +192,43 @@ class CompanyController extends Controller
         $companies->linkedin        = $request->input('linkedin');
         $companies->user_id         = Auth::user()->id;
 
-        $result = $companies->update();
+            if ($request->file('image')) {
 
-        if ($result == true) {
-            $success = true;
-            $flag    = 'success';
-            $subject = 'عملیات موفق';
-            $message = 'اطلاعات با موفقیت ثبت شد';
-        }
-        else {
-            $success = false;
-            $flag    = 'error';
-            $subject = 'عملیات نا موفق';
-            $message = 'اطلاعات ثبت نشد، لطفا مجددا تلاش نمایید';
+                $file       = $request->file('image');
+                $imagePath  =public_path("companies");
+                $imagelink  ="companies";
+                $imageName1  = Str::random(30).".".$file->clientExtension();
+                $favicon    = Image::make($file);
+                $favicon->fit(80, 80);
+                $companies->image = $imagelink.'/'.$imageName1;
+                $favicon->save($imagePath .'/'. $imageName1);
+
+                $imageName2  = Str::random(30).".".$file->clientExtension();
+                $favicon16  = Image::make($file);
+                $favicon16->resize(16, 16);
+                $companies->favicon16 = $imagelink.'/'.$imageName2;
+                $favicon16->save($imagePath .'/'. $imageName2);
+
+                $imageName3  = Str::random(30).".".$file->clientExtension();
+                $favicon32  = Image::make($file);
+                $favicon32->resize(32, 32);
+                $companies->favicon32 = $imagelink.'/'.$imageName3;
+                $favicon32->save($imagePath .'/'. $imageName3);
+
             }
 
-        } catch (Exception $e) {
+        $result = $companies->update();
 
-            $success = false;
-            $flag = 'error';
-            $subject = 'خطا در ارتباط با سرور';
-            //$message = strchr($e);
-            $message = 'اطلاعات ثبت نشد،لطفا بعدا مجدد تلاش نمایید ';
+            if ($result == true) {
+                Alert::success('عملیات موفق', 'اطلاعات با موفقیت ثبت شد')->autoclose(3000);
+            }
+            else {
+                Alert::error('عملیات نا موفق', 'اطلاعات ثبت نشد، لطفا مجددا تلاش نمایید')->autoclose(3000);
+            }
+        } catch (Exception $e) {
+            Alert::error('خطا در ارتباط با سرور', 'اطلاعات ثبت نشد، لطفا مجددا تلاش نمایید')->autoclose(3000);
         }
-        return response()->json(['success'=>$success , 'subject' => $subject, 'flag' => $flag, 'message' => $message]);
+        return Redirect::back();
     }
 
     public function deletecompany(Request $request)

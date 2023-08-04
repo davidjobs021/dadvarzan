@@ -61,9 +61,8 @@ class CustomerController extends Controller
                         return "در حال نمایش";
                     }
                 })
-                ->addColumn('file_link', function ($data) {
-                    $dataArray  = json_decode($data->image , true);
-                    return '<img src="' . asset($dataArray['thumb']) . '"  width="100" class="img-rounded" align="center" />';
+                ->addColumn('image', function ($data) {
+                    return '<img src="' . asset($data->image) . '"  width="100" class="img-rounded" align="center" />';
                     })
                 ->addColumn('action', function ($data) {
                     $actionBtn = '<a href="' . route('customer-manage.edit', $data->id) . '" class="btn ripple btn-outline-info btn-icon" style="float: right;margin: 0 5px;"><i class="fe fe-edit-2"></i></a>
@@ -72,7 +71,7 @@ class CustomerController extends Controller
                     return $actionBtn;
                 })
 
-                ->rawColumns(['action' , 'file_link'])
+                ->rawColumns(['action' , 'image'])
                 ->make(true);
         }
 
@@ -117,14 +116,16 @@ class CustomerController extends Controller
             $customers->home_show   = $request->input('home_show');
             $customers->priority    = $priority;
             $customers->user_id     = Auth::user()->id;
-            $file                   = $request->file('file_link');
-            $imagePath              = 'customers/images';
-            $filename               = Str::random(30).".".$file->clientExtension();
-
-            $newImage               = Image::make($file);
-            $newImage->fit(200, 200);
-            $customers->image = $imagePath.'/'.$filename;
-            $newImage->save($imagePath .'/'. $filename);
+            if($request->hasfile('file_link')) {
+                $file = $request->file('file_link');
+                $imagePath  =public_path("customers");
+                $imagelink  ="customers";
+                $filename = Str::random(30) . "." . $file->clientExtension();
+                $newImage = Image::make($file);
+                $newImage->fit(200, 200);
+                $customers->image = $imagelink . '/' . $filename;
+                $newImage->save($imagePath . '/' . $filename);
+            }
             $result = $customers->save();
 
 //            $file               = $request->file('file_link');
@@ -207,12 +208,15 @@ class CustomerController extends Controller
                 $customer->description          = $request->input('text');
                 $customer->status               = $request->input('status');
                 $customer->priority             = $request->input('priority');
-                if ($request->hasfile('file_link')) {
+                if($request->hasfile('file_link')) {
                     $file = $request->file('file_link');
-                    $imagePath = "public/customers/images";
-                    $imageName = Str::random(30) . "." . $file->clientExtension();
-                    $customer->file_link = 'customers/images/' . $imageName;
-                    $file->storeAs($imagePath, $imageName);
+                    $imagePath  =public_path("customers");
+                    $imagelink  ="customers";
+                    $filename = Str::random(30) . "." . $file->clientExtension();
+                    $newImage = Image::make($file);
+                    $newImage->fit(200, 200);
+                    $customer->image = $imagelink . '/' . $filename;
+                    $newImage->save($imagePath . '/' . $filename);
                 }
                 $result = $customer->save();
             }

@@ -13,21 +13,20 @@ use App\Models\Submenu;
 
 class IndexController extends Controller
 {
+    public function demo(){
+        return view('Demo.index');
+    }
     public function index(){
 
-        $menus              = Menu::select('id' , 'title' , 'slug' , 'submenu' , 'priority')->whereStatus(4)->orderBy('priority')->get();
-        $thispage           = Menu::select('title' , 'slug' , 'tab_title' , 'page_title' , 'keyword' , 'page_description')->whereSlug('/')->first();
+        $menus              = Menu::select('id' , 'title' , 'slug' , 'submenu' , 'priority' , 'mega_manu')->whereStatus(4)->orderBy('priority')->get();
+        $thispage           = Menu::select('title' , 'slug' , 'tab_title' , 'page_title' , 'keyword' , 'page_description')->whereSlug('index')->first();
         $companies          = Company::first();
         $submenus           = Submenu::select('title' , 'slug' , 'menu_id')->whereStatus(4)->get();
+        $services           = Submenu::select('title' , 'slug' , 'menu_id' , 'image')->whereStatus(4)->whereMenu_id(64)->get();
         $slides             = Slide::select('title1'  , 'title2', 'word' , 'file_link')->whereMenu_id(1)->whereStatus(4)->first();
         $customers          = Customer::select('name' , 'image')->whereStatus(4)->whereHome_show(1)->get();
         return view('Site.index')
-            ->with(compact('menus'))
-            ->with(compact('thispage'))
-            ->with(compact('companies'))
-            ->with(compact('slides'))
-            ->with(compact('customers'))
-            ->with(compact('submenus'));
+            ->with(compact('menus','thispage' , 'companies' , 'slides' , 'customers' , 'submenus' , 'services'));
     }
 
     public function portfolios(){

@@ -15,13 +15,14 @@ class Menu extends Model
     {
         return [
             'slug' => [
-                'source' => 'title'
+                'source' => 'title',
+                'onUpdate' => $this->shouldSlug()
             ]
         ];
     }
-
-    public $fillable=['title','slug','submenu','keycheck','keyword','status','description','user_id'];
-
-
+    protected function shouldSlug()
+    {
+        return $this->id != 1;
+    }
 
 }

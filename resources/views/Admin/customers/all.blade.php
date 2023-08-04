@@ -99,7 +99,7 @@
                 columns: [
                     {data: 'id'         , name: 'id'},
                     {data: 'priority'   , name: 'priority'},
-                    {data: 'file_link'  , name: 'file_link'},
+                    {data: 'image'      , name: 'image'},
                     {data: 'name'       , name: 'name'},
                     {data: 'description', name: 'description'},
                     {data: 'status'     , name: 'status'},

@@ -5,12 +5,17 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
+use App\Http\Requests\Userrequest;
+use App\Models\User;
+use Laravel\Socialite\Facades\Socialite;
 
 trait AuthenticatesUsers
 {
     use RedirectsUsers, ThrottlesLogins;
-
     /**
      * Show the application's login form.
      *
@@ -18,9 +23,51 @@ trait AuthenticatesUsers
      */
     public function showLoginForm()
     {
-        return view('auth.login');
+//dd('salam1');
+        return view('Admin.auth.login');
+    }
+    public function showLoginuserForm()
+    {
+//dd('salm');
+        if (Auth::check()){
+            return Redirect::url()->previous();
+        }
+        session(['url' => url()->previous()]);
+        //session()->flash('url' , url()->previous());
+        return view('Site.auth.login');
     }
 
+    public function redirectToProvider($provider)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+
+    public function handleProviderCallback($provider)
+    {
+        $user = Socialite::driver($provider)->user();
+        $authUser = $this->findOrCreateUser($user, $provider);
+        Auth::login($authUser, true);
+        alert()->success($user->name.' به وبسایت هم عهد ' , 'خوش آمدید' );
+        $url  = Session::get('url');
+        return Redirect::to($url);
+    }
+
+    public function findOrCreateUser($user, $provider)
+    {
+        $authUser = User::whereEmail($user->email)->first();
+        if ($authUser) {
+            return $authUser;
+        }
+        return  User::create([
+            'name'          => $user->name,
+            'username'      => $user->name,
+            'email'         => $user->email,
+            'type_id'       => 6,
+            'email_verify'  => 1,
+            'status'        => 4,
+            'password'      => $user->id
+        ]);
+    }
     /**
      * Handle a login request to the application.
      *
@@ -29,8 +76,9 @@ trait AuthenticatesUsers
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function login(Request $request)
+    public function panellogin(Userrequest $request)
     {
+
         $this->validateLogin($request);
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
@@ -57,6 +105,29 @@ trait AuthenticatesUsers
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+    }
+
+    public function userlogin(Userrequest $request)
+    {
+        $user = User::whereEmail($request->input('email'))->first();
+        if ($user != null) {
+            if (Hash::check($request->input('password'), $user->password)) {
+                Auth::loginUsingId($user->id);
+                alert()->success($user->name.' به وبسایت هم عهد ' , 'خوش آمدید' );
+                //dd(url()->previous());
+                $url  = Session::get('url');
+                return Redirect::to($url);
+                //return Redirect::route('indexfilter');
+            } else {
+                alert()->error('عملیات ناموفق', 'شماره تلفن و یا رمز عبور اشتباه است');
+                return Redirect::back();
+            }
+        } else {
+
+            alert()->error('عملیات ناموفق', 'شماره تلفن و یا رمز عبور وارد نشده است');
+            return Redirect::back();
+        }
+
     }
 
     /**
@@ -116,8 +187,8 @@ trait AuthenticatesUsers
         }
 
         return $request->wantsJson()
-                    ? new JsonResponse([], 204)
-                    : redirect()->intended($this->redirectPath());
+            ? new JsonResponse([], 204)
+            : redirect()->intended($this->redirectPath());
     }
 
     /**

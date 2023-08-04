@@ -99,7 +99,7 @@
                     {data: 'mobile'     , name: 'mobile'},
                     {data: 'email'      , name: 'email'},
                     {data: 'ceo'        , name: 'ceo'},
-                    {data: 'file_link'  , name: 'file_link'},
+                    {data: 'image'      , name: 'image'},
                     {data: 'action'     , name: 'action'},
                 ]
             });

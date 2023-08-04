@@ -2,22 +2,19 @@
 <html lang="fa">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="author" content="حسین دیوان بیگی">
+    <meta name="author" content="مهندس محمد حسین دیوان بیگی">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <meta name="robots" content="index, follow">
 
     <!-- Google fonts -->
 {{--    <link rel="preconnect" href="https://fonts.gstatic.com/">--}}
 {{--    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet">--}}
 
-    <!-- Favicon -->
-    <!-- <link rel="icon" sizes="16x16" href="images/favicon.png"> -->
 
-{{--    <link rel="icon" href="images/favicon-32x32.png" sizes="32x32" type="image/png">--}}
-{{--    <link rel="icon" href="images/favicon-16x16.png" sizes="16x16" type="image/png">--}}
+    <link rel="icon" href="{{$companies['favicon16']}}" sizes="16x16" type="image/png">
+    <link rel="icon" href="{{$companies['favicon32']}}" sizes="32x32" type="image/png">
 
-    <!-- inject:css -->
     <link rel="stylesheet" href="{{asset('site/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('site/css/line-awesome.css')}}">
     <link rel="stylesheet" href="{{asset('site/css/owl.carousel.min.css')}}">
@@ -28,11 +25,9 @@
     <link rel="stylesheet" href="{{asset('site/css/style.css')}}">
 
 @yield('style')
-    <!-- end inject -->
 </head>
 <body>
 
-<!-- start cssload-loader -->
 <div class="preloader">
     <div class="loader">
         <svg class="spinner" viewBox="0 0 50 50">
@@ -97,7 +92,7 @@
                     <div class="col-lg-2">
                         <div class="logo-box">
                             <a href="{{route('/')}}" class="logo">
-                                <img src="{{asset('storage/'.$companies['file_link'])}}" alt="{{$companies['title']}}">
+                                <img src="{{asset($companies['image'])}}" alt="{{$companies['title']}}">
                             </a>
                             <div class="user-btn-action d-flex">
 {{--                                <div class="search-menu-toggle icon-element icon-element-sm shadow-sm mr-2" data-toggle="tooltip" data-placement="top" title="جستجو کردن">--}}
@@ -122,23 +117,69 @@
                                                 <a href="{{url($menu->slug)}}">{{$menu->title}}</a>
                                             </li>
                                         @else
-                                            <li>
-                                                <a href="{{url($menu->slug)}}">{{$menu->title}}<i class="la la-angle-down fs-12"></i></a>
-                                                <ul class="dropdown-menu-item">
-                                                    @foreach($submenus as $submenu)
-                                                        @if($menu->id == $submenu->menu_id)
-                                                            <li><a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{$submenu->title}}</a></li>
-                                                        @endif
-                                                    @endforeach
-                                                </ul>
-                                            </li>
+                                            @if($menu->mega_manu == 1)
+                                                <li class="mega-menu-has">
+                                                    <a href="{{url($menu->slug)}}">{{$menu->title}}<i class="la la-angle-down fs-12"></i></a>
+                                                    <div class="dropdown-menu-item mega-menu">
+                                                        <ul class="row no-gutters">
+                                                            <li class="col-lg-3">
+                                                                @foreach($submenus as $submenu)
+                                                                    @if($menu->id == $submenu->menu_id)
+                                                                        @php $words = explode(' ', $submenu->title) @endphp
+                                                                        @if($words[0] == 'حقوقی')
+                                                                            <a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{$submenu->title}}</a>
+                                                                        @endif
+                                                                    @endif
+                                                                @endforeach
+                                                            </li>
+                                                            <li class="col-lg-3">
+                                                                @foreach($submenus as $submenu)
+                                                                    @if($menu->id == $submenu->menu_id)
+                                                                        @php $words = explode(' ', $submenu->title) @endphp
+                                                                        @if($words[0] == 'کیفری')
+                                                                            <a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{$submenu->title}}</a>
+                                                                        @endif
+                                                                    @endif
+                                                                @endforeach
+                                                            </li>
+                                                            <li class="col-lg-3">
+                                                                @foreach($submenus as $submenu)
+                                                                    @if($menu->id == $submenu->menu_id)
+                                                                        @php $words = explode(' ', $submenu->title) @endphp
+                                                                        @if($words[0] == 'تجاری')
+                                                                            <a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{$submenu->title}}</a>
+                                                                        @endif
+                                                                    @endif
+                                                                @endforeach
+                                                            </li>
+                                                            <li class="col-lg-3">
+                                                                <div class="menu-banner position-relative h-100">
+                                                                    <div class="overlay rounded-rounded opacity-4"></div>
+                                                                    <img src="{{asset('site/images/img4.jpg')}}" alt="" class="w-100 h-100 rounded-rounded">
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            @else
+                                                <li>
+                                                    <a href="{{url($menu->slug)}}">{{$menu->title}}<i class="la la-angle-down fs-12"></i></a>
+                                                    <ul class="dropdown-menu-item">
+                                                        @foreach($submenus as $submenu)
+                                                            @if($menu->id == $submenu->menu_id)
+                                                                <li><a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{$submenu->title}}</a></li>
+                                                            @endif
+                                                        @endforeach
+                                                    </ul>
+                                                </li>
+                                            @endif
                                         @endif
                                     @endforeach
                                 </ul>
                             </nav>
 
                         <div class="nav-left-button">
-                            <a href="admission.html" class="btn theme-btn d-none d-lg-inline-block"> درخواست مشاوره</a>
+                            <a href="#" class="btn theme-btn d-none d-lg-inline-block"> درخواست مشاوره</a>
                         </div>
                     </div>
                     </div>
@@ -149,7 +190,7 @@
     <div class="off-canvas-menu custom-scrollbar-styled main-off-canvas-menu">
         <div class="off-canvas-menu-close main-menu-close icon-element icon-element-sm shadow-sm" data-toggle="tooltip" data-placement="right" title="بستن منو">
             <i class="la la-times"></i>
-        </div><!-- end off-canvas-menu-close -->
+        </div>
         <ul class="generic-list-item off-canvas-menu-list pt-90px">
             <li>
             @foreach($menus as $menu)
@@ -200,7 +241,7 @@
                     <h3 class="fs-20 font-weight-semi-bold">{{$companies['title']}}</h3>
                     <span class="section-divider section--divider"></span>
 {{--                    <a href="{{route('/')}}">--}}
-{{--                        <img src="{{asset('storage/'.$companies['file_link'])}}" alt="{{$companies['title']}}" class="footer__logo" style="width: 30%">--}}
+{{--                        <img src="{{asset($companies['image'])}}" alt="{{$companies['title']}}" class="footer__logo" style="width: 30%">--}}
 {{--                    </a>--}}
                     <ul class="generic-list-item text-justify">
                         {!! $companies['summery'] !!}
@@ -272,15 +313,15 @@
                 <div class="col-lg-6">
                     <div class="d-flex flex-wrap align-items-center justify-content-end">
                         <ul class="generic-list-item d-flex flex-wrap align-items-center fs-14">
-                            <li class="mr-3"><a href="{{route('شرایط-ضوابط')}}">شرایط و ضوابط</a></li>
+                            <li class="mr-3"><a href="#">شرایط و ضوابط</a></li>
                             <li class="mr-3"><a href="#">حریم خصوصی</a></li>
                         </ul>
-                        <div class="select-container select-container-sm">
-                            <select class="select-container-select">
-                                <option value="1">فارسی</option>
-                                <option value="2">انگلیسی</option>
-                            </select>
-                        </div>
+{{--                        <div class="select-container select-container-sm">--}}
+{{--                            <select class="select-container-select">--}}
+{{--                                <option value="1">فارسی</option>--}}
+{{--                                <option value="2">انگلیسی</option>--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
                     </div>
                 </div>
             </div>

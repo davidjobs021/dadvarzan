@@ -4,8 +4,8 @@
     <link href="{{asset('admin/assets/plugins/spectrum-colorpicker/spectrum.css')}}" rel="stylesheet">
     <link href="{{asset('admin/assets/plugins/ion-rangeslider/css/ion.rangeSlider.css')}}" rel="stylesheet">
     <link href="{{asset('admin/assets/plugins/ion-rangeslider/css/ion.rangeSlider.skinFlat.css')}}" rel="stylesheet">
-    <link href="{{asset('admin/assets/plugins/fileuploads/css/fileupload.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{asset('admin/assets/plugins/fancyuploder/fancy_fileupload.css')}}" rel="stylesheet" />
+    <link href="{{asset('admin/assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('main')
@@ -23,8 +23,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                @foreach($menus as $menu)
-                                    <form action="{{route(request()->segment(2).'.update', $menu->id)}}" method="POST">
+                                    <form action="{{route(request()->segment(2).'.update', $menus->id)}}" method="POST">
                                         <div class="row row-sm">
                                             {{csrf_field()}}
                                             {{ method_field('PATCH') }}
@@ -35,37 +34,37 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <p class="mg-b-10">عنوان منو سایت</p>
-                                                    <input type="text" name="title" id="title" data-required="1" value="{{$menu->title}}" class="form-control" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <p class="mg-b-10">کلمات کلیدی</p>
-                                                    <input type="text" name="keyword" id="keyword" data-required="1" value="{{$menu->keyword}}" class="form-control" />
+                                                    <input type="text" name="title" id="title" value="{{$menus->title}}" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <p class="mg-b-10">زیر منو سایت</p>
-                                                    <select name="submenu" id="submenu" class="form-control">
-                                                        <option value="1" {{$menu->submenu == 1 ? 'selected' : ''}}>دارد</option>
-                                                        <option value="0" {{$menu->submenu == 0 ? 'selected' : ''}}>ندارد</option>
+                                                    <select name="submenu" id="submenu" class="form-control select2">
+                                                        <option value="1" {{$menus->submenu == 1 ? 'selected' : ''}}>دارد</option>
+                                                        <option value="0" {{$menus->submenu == 0 ? 'selected' : ''}}>ندارد</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <p class="mg-b-10">نمایش/عدم نمایش</p>
-                                                    <select name="status" id="status" class="form-control">
-                                                        <option value="4" {{$menu->status == '4' ? 'selected' : ''}}>نمایش</option>
-                                                        <option value="0" {{$menu->status == '0' ? 'selected' : ''}}>عدم نمایش</option>
+                                                    <select name="status" id="status" class="form-control select2">
+                                                        <option value="4" {{$menus->status == '4' ? 'selected' : ''}}>نمایش</option>
+                                                        <option value="0" {{$menus->status == '0' ? 'selected' : ''}}>عدم نمایش</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
+                                                    <p class="mg-b-10">کلمات کلیدی</p>
+                                                    <input type="text" name="keyword" id="keyword" @if($menus->keyword)value="{{implode("،" , json_decode($menus->keyword))}}" @endif class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
                                                     <p class="mg-b-10">توضیحات</p>
-                                                    <textarea name="description" id="description" class="form-control" cols="30" rows="4">{{$menu->description}}</textarea>
+                                                    <textarea name="description" id="description" class="form-control" cols="30" rows="4">{{$menus->page_description}}</textarea>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 mg-b-10 text-center">
@@ -75,7 +74,6 @@
                                             </div>
                                         </div>
                                     </form>
-                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -99,14 +97,16 @@
                     }
                 });
                 jQuery.ajax({
-                    url: "{{ route(request()->segment(2).'.update' , $menu->id) }}",
+                    url: "{{ route(request()->segment(2).'.update' , $menus->id) }}",
                     method: 'PATCH',
                     data: {
                         "_token": "{{ csrf_token() }}",
                         // menu_id     : jQuery('#menu_id').val(),
                         title       : jQuery('#title').val(),
                         submenu     : jQuery('#submenu').val(),
-                        status      : jQuery('#status').val()
+                        keyword     : jQuery('#keyword').val(),
+                        description : jQuery('#description').val(),
+                        status      : jQuery('#status').val(),
                     },
                     success: function (data) {
                         swal(data.subject, data.message, data.flag);
