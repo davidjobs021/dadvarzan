@@ -23,7 +23,7 @@ class IndexController extends Controller
         $companies          = Company::first();
         $submenus           = Submenu::select('title' , 'slug' , 'menu_id')->whereStatus(4)->get();
         $services           = Submenu::select('title' , 'slug' , 'menu_id' , 'image')->whereStatus(4)->whereMenu_id(64)->get();
-        $slides             = Slide::select('title1'  , 'title2', 'word' , 'file_link')->whereMenu_id(1)->whereStatus(4)->first();
+        $slides             = Slide::select('id', 'file_link')->whereMenu_id(1)->whereStatus(4)->get();
         $customers          = Customer::select('name' , 'image')->whereStatus(4)->whereHome_show(1)->get();
         return view('Site.index')
             ->with(compact('menus','thispage' , 'companies' , 'slides' , 'customers' , 'submenus' , 'services'));
