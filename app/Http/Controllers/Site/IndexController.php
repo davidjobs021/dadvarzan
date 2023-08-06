@@ -10,25 +10,47 @@ use App\Models\Dashboard\Portfolio;
 use App\Models\Dashboard\Slide;
 use App\Models\Menu;
 use App\Models\Submenu;
+use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
     public function demo(){
         return view('Demo.index');
     }
-    public function index(){
 
-        $menus              = Menu::select('id' , 'title' , 'slug' , 'submenu' , 'priority' , 'mega_manu')->whereStatus(4)->orderBy('priority')->get();
-        $thispage           = Menu::select('title' , 'slug' , 'tab_title' , 'page_title' , 'keyword' , 'page_description')->whereSlug('index')->first();
+    public function index(Request $request){
+        $url = $request->segments();
+        $menus        = Menu::select('id' , 'title' , 'slug' , 'submenu' , 'priority' , 'mega_manu')->whereStatus(4)->orderBy('priority')->get();
+        if (count($url) == 1) {
+            $thispage = Menu::select('id' , 'title', 'slug', 'tab_title', 'page_title', 'keyword', 'page_description')->whereSlug($url[0])->first();
+        }else{
+            $thispage = Submenu::select('id' , 'title', 'slug', 'tab_title', 'page_title', 'keyword', 'page_description')->whereSlug($url[1])->first();
+        }
         $companies          = Company::first();
         $submenus           = Submenu::select('title' , 'slug' , 'menu_id')->whereStatus(4)->get();
         $services           = Submenu::select('title' , 'slug' , 'menu_id' , 'image')->whereStatus(4)->whereMenu_id(64)->get();
-        $slides             = Slide::select('id', 'file_link')->whereMenu_id(1)->whereStatus(4)->get();
+        $slides             = Slide::select('id', 'file_link')->whereMenu_id($thispage['id'])->whereStatus(4)->get();
         $customers          = Customer::select('name' , 'image')->whereStatus(4)->whereHome_show(1)->get();
         return view('Site.index')
             ->with(compact('menus','thispage' , 'companies' , 'slides' , 'customers' , 'submenus' , 'services'));
     }
 
+    public function about(Request $request){
+        $url = $request->segments();
+        $menus              = Menu::select('id' , 'title' , 'slug' , 'submenu' , 'priority' , 'mega_manu')->whereStatus(4)->orderBy('priority')->get();
+        if (count($url) == 1) {
+            $thispage = Menu::select('id' , 'title', 'slug', 'tab_title', 'page_title', 'keyword', 'page_description')->whereSlug($url[0])->first();
+        }else{
+            $thispage = Submenu::select('id' , 'title', 'slug', 'tab_title', 'page_title', 'keyword', 'page_description')->whereSlug($url[1])->first();
+        }
+        $companies          = Company::first();
+        $submenus           = Submenu::select('title' , 'slug' , 'menu_id')->whereStatus(4)->get();
+        $services           = Submenu::select('title' , 'slug' , 'menu_id' , 'image')->whereStatus(4)->whereMenu_id(64)->get();
+        $slides             = Slide::select('id', 'file_link')->whereMenu_id($thispage['id'])->whereStatus(4)->get();
+        $customers          = Customer::select('name' , 'image')->whereStatus(4)->whereHome_show(1)->get();
+    return view('Site.about')
+        ->with(compact('menus','thispage' , 'companies' , 'slides' , 'customers' , 'submenus' , 'services'));
+}
     public function portfolios(){
         $menus              = Menu::select('id' , 'title' , 'slug' , 'submenu' , 'priority')->whereStatus(4)->orderBy('priority')->get();
         $services           = Menu::select('id' , 'title' , 'service_name')->whereStatus(4)->whereService(1)->get();
