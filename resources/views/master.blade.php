@@ -123,31 +123,34 @@
                                                     <div class="dropdown-menu-item mega-menu">
                                                         <ul class="row no-gutters">
                                                             <li class="col-lg-3">
+                                                                <h5 style="border-bottom: 1px solid #d9d9d9;padding-bottom: 10px;margin-bottom: 10px;">حقوقی</h5>
                                                                 @foreach($submenus as $submenu)
                                                                     @if($menu->id == $submenu->menu_id)
                                                                         @php $words = explode(' ', $submenu->title) @endphp
                                                                         @if($words[0] == 'حقوقی')
-                                                                            <a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{$submenu->title}}</a>
+                                                                            <a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{str_replace($words[0], '', $submenu->title)}}</a>
                                                                         @endif
                                                                     @endif
                                                                 @endforeach
                                                             </li>
                                                             <li class="col-lg-3">
+                                                                <h5 style="border-bottom: 1px solid #d9d9d9;padding-bottom: 10px;margin-bottom: 10px;">کیفری</h5>
                                                                 @foreach($submenus as $submenu)
                                                                     @if($menu->id == $submenu->menu_id)
                                                                         @php $words = explode(' ', $submenu->title) @endphp
                                                                         @if($words[0] == 'کیفری')
-                                                                            <a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{$submenu->title}}</a>
+                                                                            <a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{str_replace($words[0], '', $submenu->title)}}</a>
                                                                         @endif
                                                                     @endif
                                                                 @endforeach
                                                             </li>
                                                             <li class="col-lg-3">
+                                                                <h5 style="border-bottom: 1px solid #d9d9d9;padding-bottom: 10px;margin-bottom: 10px;">تجاری</h5>
                                                                 @foreach($submenus as $submenu)
                                                                     @if($menu->id == $submenu->menu_id)
                                                                         @php $words = explode(' ', $submenu->title) @endphp
                                                                         @if($words[0] == 'تجاری')
-                                                                            <a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{$submenu->title}}</a>
+                                                                            <a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{str_replace($words[0], '', $submenu->title)}}</a>
                                                                         @endif
                                                                     @endif
                                                                 @endforeach
